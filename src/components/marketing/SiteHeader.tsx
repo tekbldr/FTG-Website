@@ -29,6 +29,9 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="flex items-center gap-3">
+          <Link href="/login" className="btn hidden sm:inline-flex">
+            Log in
+          </Link>
           <Link href="/pitch" className="btn solid hidden sm:inline-flex">
             Pitch us
           </Link>
@@ -49,7 +52,10 @@ export function SiteHeader() {
               {l.label}
             </Link>
           ))}
-          <Link href="/pitch" className="btn solid mt-2" onClick={() => setOpen(false)}>
+          <Link href="/login" className="btn mt-2" onClick={() => setOpen(false)}>
+            Log in
+          </Link>
+          <Link href="/pitch" className="btn solid" onClick={() => setOpen(false)}>
             Pitch us
           </Link>
         </div>
