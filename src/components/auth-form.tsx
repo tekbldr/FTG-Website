@@ -32,7 +32,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
         setBusy(false);
         return;
       }
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -41,7 +41,13 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
         },
       });
       if (error) setErr(error.message);
-      else setMsg("Check your email to confirm your account, then sign in.");
+      else if (data.session) {
+        // Confirmation disabled → user is signed in immediately.
+        router.push(next);
+        router.refresh();
+      } else {
+        setMsg("Check your email to confirm your account, then sign in.");
+      }
     } else {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) setErr(error.message);
