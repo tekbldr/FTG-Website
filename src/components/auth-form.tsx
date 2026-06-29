@@ -12,10 +12,14 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
+
+  // Live mismatch check (only once the user has started typing the confirmation).
+  const mismatch = mode === "signup" && confirmPassword.length > 0 && password !== confirmPassword;
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -23,6 +27,11 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
     setErr(null);
     setMsg(null);
     if (mode === "signup") {
+      if (password !== confirmPassword) {
+        setErr("Passwords don't match. Please re-enter them.");
+        setBusy(false);
+        return;
+      }
       const { error } = await supabase.auth.signUp({
         email,
         password,
@@ -54,7 +63,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
       <Field label="Email" htmlFor="em" required>
         <Input id="em" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" />
       </Field>
-      <Field label="Password" htmlFor="pw" required>
+      <Field label="Password" htmlFor="pw" required hint={mode === "signup" ? "At least 8 characters." : undefined}>
         <Input
           id="pw"
           type="password"
@@ -65,9 +74,27 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
           autoComplete={mode === "signup" ? "new-password" : "current-password"}
         />
       </Field>
-      {err && <p className="text-spark text-[13px]" role="alert">{err}</p>}
+      {mode === "signup" && (
+        <Field label="Confirm password" htmlFor="pw2" required error={mismatch ? "Passwords don't match." : undefined}>
+          <Input
+            id="pw2"
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+            minLength={8}
+            autoComplete="new-password"
+            aria-invalid={mismatch || undefined}
+          />
+        </Field>
+      )}
+      {err && (
+        <p className="text-spark text-[13px]" role="alert">
+          {err}
+        </p>
+      )}
       {msg && <p className="text-[#7fdca0] text-[13px]">{msg}</p>}
-      <Button type="submit" variant="spark" disabled={busy}>
+      <Button type="submit" variant="spark" disabled={busy || mismatch}>
         {busy ? "…" : mode === "signup" ? "Create account →" : "Sign in →"}
       </Button>
     </form>

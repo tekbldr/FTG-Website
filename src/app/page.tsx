@@ -9,6 +9,7 @@ import {
   model,
   group,
   pillars,
+  pillarX,
   loopIntro,
   loopNodes,
   loopLegend,
@@ -17,6 +18,7 @@ import {
   closing,
   site,
 } from "@/content/site";
+import { SocialLink } from "@/components/marketing/SocialIcons";
 
 const d = (i: number) => (i ? ` d${i}` : "");
 
@@ -127,6 +129,9 @@ export default function Home() {
                     {p.tags.map((t) => (
                       <span key={t}>{t}</span>
                     ))}
+                    {pillarX[p.name] && (
+                      <SocialLink kind="x" handle={pillarX[p.name].handle} url={pillarX[p.name].url} compact />
+                    )}
                   </div>
                 </div>
               ))}

@@ -168,3 +168,29 @@ export const footer = {
   note: "First Tech Group · Markets · Money · Intelligence",
   edition: "2026 Edition",
 };
+
+// ── Social accounts ──────────────────────────────────────────────────────────
+export type Social = { kind: "x" | "instagram"; handle: string; url: string };
+export type BrandSocialItem = { name: string; kind: "x" | "instagram"; handle: string; url: string };
+
+export const socials = {
+  // FTG's own official accounts
+  ftg: [
+    { kind: "instagram", handle: "firsttechgroup", url: "https://instagram.com/firsttechgroup" },
+    { kind: "x", handle: "ftg_vc", url: "https://x.com/ftg_vc" },
+  ] as Social[],
+  // Portfolio brands on X
+  portfolio: [
+    { name: "Exx1", kind: "x", handle: "exx1_com", url: "https://x.com/exx1_com" },
+    { name: "PRVAI", kind: "x", handle: "Prv_ai", url: "https://x.com/Prv_ai" },
+    { name: "Diwan OS", kind: "x", handle: "d1wan_ai", url: "https://x.com/d1wan_ai" },
+    { name: "PRV Wallet", kind: "x", handle: "Prv1_com", url: "https://x.com/Prv1_com" },
+  ] as BrandSocialItem[],
+};
+
+// X handle per pillar (keyed by pillar name) — used on the portfolio pillar cards.
+export const pillarX: Record<string, { handle: string; url: string }> = {
+  Exx1: { handle: "exx1_com", url: "https://x.com/exx1_com" },
+  PRVAI: { handle: "Prv_ai", url: "https://x.com/Prv_ai" },
+  "PRV Wallet": { handle: "Prv1_com", url: "https://x.com/Prv1_com" },
+};
