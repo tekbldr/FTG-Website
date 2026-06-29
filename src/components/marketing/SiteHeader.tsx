@@ -56,27 +56,29 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="flex items-center gap-3">
-          {authed ? (
-            <>
-              <button
-                type="button"
-                onClick={signOut}
-                className="hidden font-mono text-[12px] uppercase tracking-[.12em] text-[var(--muted)] transition hover:text-paper sm:inline-flex"
-              >
-                Sign out
-              </button>
-              <Link href="/portal" className="btn hidden sm:inline-flex">
-                Portal
+          <div className="header-actions">
+            {authed ? (
+              <>
+                <button
+                  type="button"
+                  onClick={signOut}
+                  className="font-mono text-[12px] uppercase tracking-[.12em] text-[var(--muted)] transition hover:text-paper"
+                >
+                  Sign out
+                </button>
+                <Link href="/portal" className="btn">
+                  Portal
+                </Link>
+              </>
+            ) : (
+              <Link href="/login" className="btn">
+                Log in
               </Link>
-            </>
-          ) : (
-            <Link href="/login" className="btn hidden sm:inline-flex">
-              Log in
+            )}
+            <Link href="/pitch" className="btn solid">
+              Pitch us
             </Link>
-          )}
-          <Link href="/pitch" className="btn solid hidden sm:inline-flex">
-            Pitch us
-          </Link>
+          </div>
           <button
             className="btn menu-toggle"
             aria-expanded={open}
