@@ -51,12 +51,12 @@ export default function Home() {
             </div>
             <div className="hero-art reveal d2">
               <Image
-                src="/hero-stack.jpg"
+                src="/hero-stack.png"
                 alt="Region-grade Arabic AI and data residency converging into FTG's applications, platform, data and infrastructure stack."
                 width={721}
                 height={863}
                 priority
-                sizes="(max-width: 900px) 360px, 480px"
+                unoptimized
                 className="hero-art-img"
               />
             </div>
