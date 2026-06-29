@@ -27,4 +27,4 @@ export const ROLE_GROUPS: { module: string; roles: ModuleRole[] }[] = [
 
 export const ALL_ROLES = Object.keys(ROLE_LABELS) as ModuleRole[];
 
-export type AdminModules = { careers: boolean; pitch: boolean; insights: boolean; people: boolean };
+export type AdminModules = { careers: boolean; pitch: boolean; insights: boolean; people: boolean; audit: boolean };

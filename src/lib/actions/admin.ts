@@ -1,16 +1,25 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { requireRole } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { sendEmail, applicationStageEmail, submissionStageEmail } from "@/lib/email";
+import { getMyRoles, canCareers, canPitch, isSuperAdmin } from "@/lib/rbac";
+import { logAudit } from "@/lib/audit";
+
+async function currentUserId(): Promise<string | null> {
+  const {
+    data: { user },
+  } = await createClient().auth.getUser();
+  return user?.id ?? null;
+}
 
 // ---------------------------------------------------------------- Careers
-// Move an application to a new ATS stage (recruiter/admin). Privileged write via
+// Move an application to a new ATS stage (any careers staff). Privileged write via
 // the service-role client; appends to application_stage_history + notifies the candidate.
 export async function moveApplicationStage(applicationId: string, toStageId: string) {
-  const profile = await requireRole("recruiter");
+  if (!canCareers(await getMyRoles())) return { ok: false, error: "Not authorized." };
+  const actorId = await currentUserId();
   const supabase = createClient();
   const { data: app } = await supabase
     .from("applications")
@@ -30,8 +39,16 @@ export async function moveApplicationStage(applicationId: string, toStageId: str
     application_id: applicationId,
     from_stage_id: fromStageId,
     to_stage_id: toStageId,
-    changed_by: profile.id,
+    changed_by: actorId,
     reason: "Stage updated",
+  });
+
+  await logAudit({
+    action: "application.stage",
+    entityType: "application",
+    entityId: applicationId,
+    summary: `Moved application → ${stage?.name ?? "stage"}`,
+    meta: { to_stage: stage?.name, status },
   });
 
   // Notify the candidate (best-effort; never blocks the move).
@@ -56,10 +73,12 @@ export async function moveApplicationStage(applicationId: string, toStageId: str
 }
 
 // ---------------------------------------------------------------- Pitch
-// Move a submission to a new pitch stage (admin). Updates status + notifies the founder.
+// Move a submission to a new pitch stage (pitch admin). Updates status + notifies the founder.
 export async function moveSubmissionStage(submissionId: string, toStageId: string) {
-  const profile = await requireRole("reviewer");
-  if (profile.role !== "admin") return { ok: false, error: "Only admins can move submissions." };
+  const roles = await getMyRoles();
+  const isPitchAdmin = isSuperAdmin(roles) || roles.includes("pitch_admin");
+  if (!isPitchAdmin) return { ok: false, error: "Only pitch admins can move submissions." };
+  const actorId = await currentUserId();
   const supabase = createClient();
   const { data: sub } = await supabase
     .from("submissions")
@@ -79,8 +98,16 @@ export async function moveSubmissionStage(submissionId: string, toStageId: strin
     submission_id: submissionId,
     from_stage_id: fromStageId,
     to_stage_id: toStageId,
-    changed_by: profile.id,
+    changed_by: actorId,
     reason: "Stage updated",
+  });
+
+  await logAudit({
+    action: "submission.stage",
+    entityType: "submission",
+    entityId: submissionId,
+    summary: `Moved submission → ${stage?.name ?? "stage"}`,
+    meta: { to_stage: stage?.name, status },
   });
 
   try {
@@ -111,20 +138,22 @@ export async function saveReview(input: {
   comments: string;
   scores: { criterionId: string; score: number }[];
 }) {
-  const profile = await requireRole("reviewer");
+  if (!canPitch(await getMyRoles())) return { ok: false, error: "Not authorized." };
+  const reviewerId = await currentUserId();
+  if (!reviewerId) return { ok: false, error: "Not signed in." };
   const supabase = createClient();
 
   const { data: existing } = await supabase
     .from("reviews")
     .select("id")
     .eq("submission_id", input.submissionId)
-    .eq("reviewer_id", profile.id)
+    .eq("reviewer_id", reviewerId)
     .maybeSingle();
 
   let reviewId = existing?.id as string | undefined;
   const fields = {
     submission_id: input.submissionId,
-    reviewer_id: profile.id,
+    reviewer_id: reviewerId,
     overall_score: input.overall,
     recommendation: input.recommendation,
     comments: input.comments || null,
@@ -152,27 +181,46 @@ export async function saveReview(input: {
     }
   }
 
+  await logAudit({
+    action: "submission.review",
+    entityType: "submission",
+    entityId: input.submissionId,
+    summary: `Saved a review${input.recommendation ? ` (${input.recommendation})` : ""}`,
+    meta: { recommendation: input.recommendation, overall: input.overall },
+  });
+
   revalidatePath("/admin/review");
   return { ok: true };
 }
 
-// Record a funding decision (admin only).
+// Record a funding decision (pitch admin only).
 export async function recordDecision(input: {
   submissionId: string;
   decision: "funded" | "declined" | "waitlisted";
   amount?: number | null;
   rationale?: string;
 }) {
-  const profile = await requireRole("reviewer");
-  if (profile.role !== "admin") return { ok: false, error: "Only admins can record decisions." };
+  const roles = await getMyRoles();
+  const isPitchAdmin = isSuperAdmin(roles) || roles.includes("pitch_admin");
+  if (!isPitchAdmin) return { ok: false, error: "Only pitch admins can record decisions." };
+  const actorId = await currentUserId();
   const admin = createAdminClient();
   await admin.from("decisions").insert({
     submission_id: input.submissionId,
     decision: input.decision,
     amount_awarded: input.amount ?? null,
-    decided_by: profile.id,
+    decided_by: actorId,
     rationale: input.rationale || null,
   });
+
+  await logAudit({
+    action: "submission.decision",
+    entityType: "submission",
+    entityId: input.submissionId,
+    summary: `Decision: ${input.decision}`,
+    meta: { decision: input.decision, amount: input.amount ?? null },
+  });
+
   revalidatePath("/admin/review");
   return { ok: true };
 }

@@ -16,6 +16,7 @@ export function AdminShell({ modules, children }: { modules: AdminModules; child
     { href: "/admin/review", label: "Pitch", show: modules.pitch },
     { href: "/admin/insights", label: "Insights", show: modules.insights },
     { href: "/admin/people", label: "People & Roles", show: modules.people },
+    { href: "/admin/audit", label: "Audit", show: modules.audit },
   ].filter((i) => i.show);
 
   async function signOut() {

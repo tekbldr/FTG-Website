@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getMyRoles, canInsights } from "@/lib/rbac";
 import type { PostStatus } from "@/lib/posts";
+import { logAudit } from "@/lib/audit";
 
 function slugify(s: string) {
   return s
@@ -54,12 +55,14 @@ function bust(id?: string) {
 export async function createPost(fd: FormData) {
   const g = await gate();
   if (!g) return;
+  const row = toRow(fd);
   const { data, error } = await createAdminClient()
     .from("posts")
-    .insert({ ...toRow(fd), status: "draft", author_id: g.userId })
+    .insert({ ...row, status: "draft", author_id: g.userId })
     .select("id")
     .single();
   if (error) throw new Error(error.message);
+  await logAudit({ action: "post.create", entityType: "post", entityId: data.id, summary: `Created "${row.title}"` });
   bust();
   redirect(`/admin/insights/${data.id}`);
 }
@@ -67,8 +70,10 @@ export async function createPost(fd: FormData) {
 export async function updatePost(id: string, fd: FormData) {
   const g = await gate();
   if (!g) return;
-  const { error } = await createAdminClient().from("posts").update(toRow(fd)).eq("id", id);
+  const row = toRow(fd);
+  const { error } = await createAdminClient().from("posts").update(row).eq("id", id);
   if (error) throw new Error(error.message);
+  await logAudit({ action: "post.update", entityType: "post", entityId: id, summary: `Edited "${row.title}"` });
   bust(id);
 }
 
@@ -83,6 +88,7 @@ export async function setPostStatus(id: string, status: PostStatus) {
   if (status === "published") patch.published_at = new Date().toISOString();
   const { error } = await createAdminClient().from("posts").update(patch).eq("id", id);
   if (error) return { ok: false, error: error.message };
+  await logAudit({ action: "post.status", entityType: "post", entityId: id, summary: `Status → ${status}`, meta: { status } });
   bust(id);
   return { ok: true };
 }
@@ -91,6 +97,7 @@ export async function deletePost(id: string) {
   const g = await gate();
   if (!g || !g.isAdmin) return;
   await createAdminClient().from("posts").delete().eq("id", id);
+  await logAudit({ action: "post.delete", entityType: "post", entityId: id });
   bust(id);
   redirect("/admin/insights");
 }
