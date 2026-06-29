@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { SiteHeader } from "@/components/marketing/SiteHeader";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
 import { HeroCanvas } from "@/components/marketing/HeroCanvas";
@@ -31,20 +32,33 @@ export default function Home() {
         <section className="hero">
           <HeroCanvas />
           <div className="wrap hero-inner">
-            <div className="eyebrow reveal">{hero.eyebrow}</div>
-            <h1 className="reveal d1">{hero.headline}</h1>
-            <p className="lead reveal d2">{hero.lead}</p>
-            <div className="cta-row reveal d3">
-              <Link href="#pillars" className="btn solid">
-                Explore the group →
-              </Link>
-              <Link href="#loop" className="btn">
-                How it compounds
-              </Link>
+            <div className="hero-copy">
+              <div className="eyebrow reveal">{hero.eyebrow}</div>
+              <h1 className="reveal d1">{hero.headline}</h1>
+              <p className="lead reveal d2">{hero.lead}</p>
+              <div className="cta-row reveal d3">
+                <Link href="#pillars" className="btn solid">
+                  Explore the group →
+                </Link>
+                <Link href="#loop" className="btn">
+                  How it compounds
+                </Link>
+              </div>
+              <div className="tagline reveal d3">
+                <span className="rule" />
+                {site.tagline}
+              </div>
             </div>
-            <div className="tagline reveal d3">
-              <span className="rule" />
-              {site.tagline}
+            <div className="hero-art reveal d2">
+              <Image
+                src="/hero-stack.jpg"
+                alt="Region-grade Arabic AI and data residency converging into FTG's applications, platform, data and infrastructure stack."
+                width={721}
+                height={863}
+                priority
+                sizes="(max-width: 900px) 360px, 480px"
+                className="hero-art-img"
+              />
             </div>
           </div>
         </section>
