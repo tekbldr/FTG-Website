@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { requireRole } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { SiteHeader } from "@/components/marketing/SiteHeader";
-import { SiteFooter } from "@/components/marketing/SiteFooter";
+import { getMyRoles, canCareers } from "@/lib/rbac";
 import { StageMover } from "@/components/admin/StageMover";
 import { FileLink } from "@/components/admin/FileLink";
 import { moveApplicationStage } from "@/lib/actions/admin";
@@ -18,7 +17,7 @@ function fmtDate(s: string | null): string {
 }
 
 export default async function RecruitingBoard() {
-  await requireRole("recruiter");
+  if (!canCareers(await getMyRoles())) redirect("/admin");
   const supabase = createClient();
 
   const [{ data: appsRaw }, { data: stagesRaw }] = await Promise.all([
@@ -61,10 +60,9 @@ export default async function RecruitingBoard() {
   });
 
   return (
-    <>
-      <SiteHeader />
-      <main className="pt-[100px] pb-16 min-h-screen">
-        <div className="px-5 sm:px-8 max-w-[1400px] mx-auto">
+    <div>
+      <div>
+        <div>
           <header className="border-b border-[var(--line)] pb-6 flex items-end justify-between gap-4 flex-wrap">
             <div>
               <div className="eyebrow">Recruiting · Admin</div>
@@ -76,7 +74,7 @@ export default async function RecruitingBoard() {
           </header>
         </div>
 
-        <div className="mt-6 overflow-x-auto px-5 sm:px-8">
+        <div className="mt-6 overflow-x-auto">
           <div className="flex gap-3 min-w-max pb-4">
             {stages.map((stage) => {
               const list = byStage.get(stage.id) ?? [];
@@ -130,8 +128,7 @@ export default async function RecruitingBoard() {
             })}
           </div>
         </div>
-      </main>
-      <SiteFooter />
-    </>
+      </div>
+    </div>
   );
 }

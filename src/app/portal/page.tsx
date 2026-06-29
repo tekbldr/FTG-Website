@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { requireUser, getProfile } from "@/lib/auth";
+import { getMyRoles, isStaff } from "@/lib/rbac";
 import { SiteHeader } from "@/components/marketing/SiteHeader";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
 
@@ -8,8 +9,8 @@ export const metadata = { title: "Your portal — First Tech Group" };
 
 export default async function PortalHub() {
   await requireUser();
-  const profile = await getProfile();
-  const isStaff = profile?.role === "recruiter" || profile?.role === "reviewer" || profile?.role === "admin";
+  const [profile, roles] = await Promise.all([getProfile(), getMyRoles()]);
+  const staff = isStaff(roles);
 
   return (
     <>
@@ -29,18 +30,11 @@ export default async function PortalHub() {
             <Card href="/portal/founder" idx="02" title="My submissions" body="Track the companies you've pitched to FTG Ventures." />
           </div>
 
-          {isStaff && (
-            <div className="mt-6 flex flex-wrap gap-3">
-              {(profile?.role === "recruiter" || profile?.role === "admin") && (
-                <Link href="/admin/recruiting" className="btn">
-                  Recruiting admin →
-                </Link>
-              )}
-              {(profile?.role === "reviewer" || profile?.role === "admin") && (
-                <Link href="/admin/review" className="btn">
-                  Review admin →
-                </Link>
-              )}
+          {staff && (
+            <div className="mt-6">
+              <Link href="/admin" className="btn solid">
+                Operations console →
+              </Link>
             </div>
           )}
         </div>

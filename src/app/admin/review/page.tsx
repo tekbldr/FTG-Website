@@ -1,7 +1,6 @@
-import { requireRole } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { SiteHeader } from "@/components/marketing/SiteHeader";
-import { SiteFooter } from "@/components/marketing/SiteFooter";
+import { getMyRoles, canPitch, isSuperAdmin } from "@/lib/rbac";
 import { Badge } from "@/components/ui";
 import { StageMover } from "@/components/admin/StageMover";
 import { FileLink } from "@/components/admin/FileLink";
@@ -17,9 +16,13 @@ type Stage = { id: string; name: string; sort_order: number; stage_type: string 
 type Criterion = { id: string; name: string; description: string | null; max_score: number; weight: number };
 
 export default async function ReviewBoard() {
-  const profile = await requireRole("reviewer");
-  const isAdmin = profile.role === "admin";
+  const roles = await getMyRoles();
+  if (!canPitch(roles)) redirect("/admin");
+  const isAdmin = isSuperAdmin(roles) || roles.includes("pitch_admin");
   const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   const [{ data: subsRaw }, { data: stagesRaw }, { data: critRaw }] = await Promise.all([
     supabase
@@ -44,7 +47,7 @@ export default async function ReviewBoard() {
       ? supabase.from("documents").select("id,submission_id,type,file_name,scan_status").in("submission_id", subIds)
       : Promise.resolve({ data: [] as any[] }),
     subIds.length
-      ? supabase.from("reviews").select("id,submission_id,recommendation,comments").eq("reviewer_id", profile.id)
+      ? supabase.from("reviews").select("id,submission_id,recommendation,comments").eq("reviewer_id", user?.id ?? "")
       : Promise.resolve({ data: [] as any[] }),
   ]);
 
@@ -75,10 +78,8 @@ export default async function ReviewBoard() {
   });
 
   return (
-    <>
-      <SiteHeader />
-      <main className="pt-[100px] pb-20 min-h-screen">
-        <div className="mx-auto max-w-[960px] px-5 sm:px-8">
+    <div>
+      <div className="mx-auto max-w-[960px]">
           <header className="border-b border-[var(--line)] pb-6 flex items-end justify-between gap-4 flex-wrap">
             <div>
               <div className="eyebrow">Deal review · {isAdmin ? "Admin" : "Reviewer"}</div>
@@ -184,9 +185,7 @@ export default async function ReviewBoard() {
             );
           })}
         </div>
-      </main>
-      <SiteFooter />
-    </>
+    </div>
   );
 }
 
