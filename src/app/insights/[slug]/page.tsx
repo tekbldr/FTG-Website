@@ -4,28 +4,23 @@ import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/marketing/SiteHeader";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
 import { LinkButton } from "@/components/ui";
-import { insights, TYPE_LABEL, TYPE_CTA } from "@/content/insights";
+import { TYPE_LABEL, TYPE_CTA } from "@/content/insights";
+import { getPublishedPostBySlug } from "@/lib/posts";
+
+export const dynamic = "force-dynamic";
 
 function fmtDate(s: string): string {
   return new Date(s).toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
 }
 
-function getItem(slug: string) {
-  return insights.find((i) => i.slug === slug) ?? null;
-}
-
-export function generateStaticParams() {
-  return insights.map((i) => ({ slug: i.slug }));
-}
-
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const item = getItem(params.slug);
+  const item = await getPublishedPostBySlug(params.slug);
   if (!item) return { title: "Insights — First Tech Group" };
   return { title: `${item.title} — FTG Insights`, description: item.excerpt };
 }
 
-export default function InsightDetail({ params }: { params: { slug: string } }) {
-  const item = getItem(params.slug);
+export default async function InsightDetail({ params }: { params: { slug: string } }) {
+  const item = await getPublishedPostBySlug(params.slug);
   if (!item) notFound();
 
   return (
@@ -52,8 +47,12 @@ export default function InsightDetail({ params }: { params: { slug: string } }) 
             <span>{item.author}</span>
             <span>·</span>
             <span>{fmtDate(item.date)}</span>
-            <span>·</span>
-            <span>{item.readTime}</span>
+            {item.readTime ? (
+              <>
+                <span>·</span>
+                <span>{item.readTime}</span>
+              </>
+            ) : null}
           </div>
 
           <div className="grid-bg mt-8 h-48 rounded-[2px] border border-[var(--line)]" />

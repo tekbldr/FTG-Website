@@ -4,7 +4,9 @@ import { SiteFooter } from "@/components/marketing/SiteFooter";
 import { InsightCard } from "@/components/insights/InsightCard";
 import { InsightsFeed } from "@/components/insights/InsightsFeed";
 import { NewsletterSignup } from "@/components/insights/NewsletterSignup";
-import { insights } from "@/content/insights";
+import { getPublishedInsights } from "@/lib/posts";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Insights — First Tech Group",
@@ -12,8 +14,8 @@ export const metadata: Metadata = {
     "FTG's research, founder stories, and field notes on building and operating the digital economy's core infrastructure.",
 };
 
-export default function InsightsPage() {
-  const sorted = [...insights].sort((a, b) => (a.date < b.date ? 1 : -1));
+export default async function InsightsPage() {
+  const sorted = await getPublishedInsights();
   const featured = sorted.filter((i) => i.featured).slice(0, 2);
 
   return (
@@ -43,7 +45,11 @@ export default function InsightsPage() {
             </section>
           )}
 
-          <InsightsFeed items={sorted} />
+          {sorted.length > 0 ? (
+            <InsightsFeed items={sorted} />
+          ) : (
+            <p className="mt-16 text-center text-[var(--muted)]">No insights published yet.</p>
+          )}
 
           <div className="mt-16">
             <NewsletterSignup />
