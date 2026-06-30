@@ -106,19 +106,31 @@ export default function Home() {
 
         {/* GROUP */}
         <section className="blk" id="group" style={{ paddingTop: 0 }}>
-          <div className="wrap">
-            <div className="sechead reveal">
-              <span className="idx">02 — THE GROUP</span>
-              <h2>{group.heading}</h2>
-              <p>{group.body}</p>
+          <div className="wrap group-grid">
+            <div className="group-copy">
+              <div className="sechead reveal">
+                <span className="idx">02 — THE GROUP</span>
+                <h2>{group.heading}</h2>
+                <p>{group.body}</p>
+              </div>
+              <blockquote className="quote reveal d1">
+                {"“"}
+                {group.quoteLead}
+                <span className="spark">{group.quoteSpark}</span>
+                {group.quoteTail}
+                {"”"}
+              </blockquote>
             </div>
-            <blockquote className="quote reveal d1">
-              {"“"}
-              {group.quoteLead}
-              <span className="spark">{group.quoteSpark}</span>
-              {group.quoteTail}
-              {"”"}
-            </blockquote>
+            <div className="group-art reveal d1">
+              <Image
+                src="/group-rocket.png"
+                alt="FTG wireframe rocket launching from its platform — funding, building, and operating the stack."
+                width={1000}
+                height={1000}
+                unoptimized
+                className="group-art-img"
+              />
+            </div>
           </div>
         </section>
 
