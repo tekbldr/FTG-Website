@@ -125,8 +125,8 @@ export default function Home() {
               <Image
                 src="/group-rocket.png"
                 alt="FTG wireframe rocket launching from its platform — funding, building, and operating the stack."
-                width={1000}
-                height={1000}
+                width={1254}
+                height={1254}
                 unoptimized
                 className="group-art-img"
               />
