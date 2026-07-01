@@ -1,44 +1,32 @@
-In November 2022, one of the largest cryptocurrency exchanges in the world collapsed, and a generation of users learned an expensive lesson in a single week: an IOU from a custodian is only as good as the custodian. "Not your keys, not your coins" stopped being a slogan traded among enthusiasts and became a design requirement for anyone serious about building in this industry.
+In November 2022, one of the largest cryptocurrency exchanges in the world went from industry darling to bankruptcy in about a week, and when the receivers finally counted, something on the order of eight billion dollars of customer money was simply not where it was supposed to be. FTX did not lose that money on a bad trade. It lost it because customer funds and the house's funds were never truly separate, and a promise to keep them apart turned out to be worth exactly nothing once the promise was tested. A generation of users learned the lesson in real time: an IOU from a custodian is only ever as good as the custodian.
 
-The lesson was real. The problem is that self-custody, as it existed then, was too hard for most people to actually use. Closing that gap — making self-custody *safe enough to be the default* — is one of the most important pieces of consumer-infrastructure work of the decade.
+"Not your keys, not your coins" stopped being a slogan traded among enthusiasts that week and became a design requirement for anyone serious about building here. The lesson was correct. The trouble is that self-custody, as it actually existed in 2022, was too hard for most people to use — which is why so many kept handing their assets to custodians even after watching custodians fail. Closing that gap, making self-custody safe enough to be the *default*, is one of the more important pieces of consumer-infrastructure work of this decade.
 
-## "Not your keys" stopped being a slogan
+## The failure that keeps happening is a custody failure
 
-The failures that have cost users the most were rarely trading failures. They were **custody** failures: commingled funds, careless key management, obligations that quietly outran reserves. Self-custody removes that entire category of risk by removing the custodian — there is no third-party balance sheet whose collapse can take your assets with it. That is the whole argument, and it is a good one.
+It is worth being precise, because the industry keeps drawing the wrong lesson. The catastrophes — FTX, and Mt. Gox before it, and a long tail of smaller collapses — were not trading failures. They were custody and operational failures: funds commingled, keys mishandled, obligations that outran reserves. Self-custody addresses this at the root, by removing the custodian entirely. There is no third-party balance sheet whose collapse can take your assets with it, because there is no third party holding them. That is the whole argument, and after 2022 it is not a hard one to make.
 
-## But self-custody had a usability problem
+## But self-custody had a usability problem, and it was fatal
 
-The reason most people stayed custodial anyway was not ignorance; it was friction. Twelve-word seed phrases you must never lose and never expose. One irreversible mistake between you and your money. No "forgot password," no support line, no undo. For the vast majority of people, that is not freedom — it is a trap with the door left open. If self-custody is going to be the default, it cannot demand that everyone become their own security engineer.
+The reason most people stayed custodial was not ignorance. It was friction. A twelve-word seed phrase you must never lose and never expose. One irreversible mistake standing between you and your money. No "forgot password," no support line, no undo. For the overwhelming majority of people, that is not freedom — it is a trap with the door left open, and it is entirely rational to prefer a custodian who at least has a phone number, right up until the custodian implodes. If self-custody is going to be the default, it cannot demand that every user become their own security engineer.
 
-## The technology got dramatically better
+## The technology to fix this arrived after 2022
 
-The good news is that the years since 2022 produced exactly the primitives self-custody needed:
+The genuinely good news is that the years since the FTX collapse produced exactly the primitives self-custody was missing:
 
-- **Smart accounts (account abstraction).** Standards like **ERC-4337**, and more recently **EIP-7702**, let a wallet be a programmable smart account rather than a bare keypair — enabling spending limits, session keys, gas sponsorship, and **social recovery** (regain access through trusted parties or devices instead of a single fragile phrase).
-- **Privacy primitives.** **Stealth addresses** (ERC-5564, from Vitalik Buterin's canonical design) let a recipient receive funds to a fresh one-time address so their activity is not trivially linkable on a public chain. The approach is powerful but not free — a freshly generated stealth address holds no balance and cannot pay its own transaction fee, one of several rough edges the ecosystem is still smoothing (adoption tools like Umbra have generated tens of thousands of stealth addresses, but the gas-funding and recovery ergonomics remain hard).
+- **Smart accounts.** Account-abstraction standards — ERC-4337, and more recently EIP-7702 — let a wallet behave like a programmable smart account rather than a bare keypair. That unlocks spending limits, session keys, gas sponsorship, and, crucially, **social recovery**: you can regain access through trusted parties or devices instead of staking everything on a single fragile phrase. The seed phrase was never the point; controlling your assets was, and now you can do the second without the first.
+- **Privacy primitives.** Stealth-address schemes (standardized as ERC-5564, from Vitalik Buterin's original design) let a recipient receive funds to a fresh, one-time address so their activity is not trivially linkable on a public chain. The approach is powerful and not yet frictionless — a freshly generated stealth address holds no balance and cannot pay its own transaction fee, one of several rough edges the ecosystem is still sanding down — but the direction is set.
 
-The honest summary: the cryptography is largely solved; the **ergonomics** are the frontier.
+The honest one-line summary: the cryptography is largely solved. The *ergonomics* are the frontier, and ergonomics is a design problem, which means it is a problem you can actually ship your way out of.
 
 ## Making it safe enough to be the default
 
-This is where PRV Wallet does its hardest work. The design goal is not "usable by crypto natives." It is "usable by your family":
+This is where the real work sits, and where PRV Wallet does its hardest engineering. The design goal is not "usable by crypto natives." It is "usable by your family": sane recovery so a lost device is an inconvenience rather than a catastrophe, sensible defaults that make the safe path the easy path, and an assistant that helps without ever holding the keys. Privacy where it counts, keys derived and encrypted on the device, and recovery a normal person can actually perform — that combination is what turns self-custody from a principle you admire into a product you would hand your parents.
 
-- **Sane recovery** so a lost device is an inconvenience, not a catastrophe.
-- **Sensible defaults** that make the safe path the easy path.
-- **An assistant that helps without ever holding the keys** — guidance and automation at the interface, self-custody preserved underneath.
+## Why "default" is the whole game
 
-Privacy where it counts, keys derived and encrypted on-device, and recovery a normal person can actually perform: that combination is what turns "self-custody" from a principle into a product.
-
-## Why "default" matters
-
-Defaults decide outcomes. If self-custody is the hard path and custody is the easy one, most people will keep handing their assets to a third party and re-learning 2022's lesson the hard way. Flip the default — make self-custody the safe, obvious choice — and you change the risk profile of the entire ecosystem, one wallet at a time.
+Defaults decide outcomes, quietly and at scale. If self-custody is the hard path and custody is the easy one, most people will keep handing their assets to a third party and keep re-learning 2022's lesson the expensive way. Flip the default — make self-custody the safe, obvious, boring choice — and you change the risk profile of the entire ecosystem one wallet at a time. That is the win worth chasing. Not convincing enthusiasts, who were already convinced, but making the safe thing effortless for everyone else.
 
 > "Not your keys, not your coins" became a design requirement. The work now is making self-custody safe enough that everyone chooses it.
 
-*PRV Wallet is in development. This piece describes design principles and the state of the underlying technology, not a live feature set.*
-
----
-
-### Notes & sources
-
-Technical references are to established standards and primary explainers: ERC-4337 and EIP-7702 (account abstraction / smart accounts) and ERC-5564 with Vitalik Buterin's stealth-address explainer (2023). The described limitations (stealth-address fee funding, recovery ergonomics) are well-documented open problems. The post-2022 shift toward self-custody is described qualitatively; specific market-share figures vary by source and are not asserted here.
+*PRV Wallet is in development. This piece describes design principles and the state of the underlying technology. The post-2022 shift toward self-custody is described qualitatively; specific figures vary by source and are not asserted here.*
