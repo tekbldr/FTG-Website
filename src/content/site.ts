@@ -149,10 +149,12 @@ export const closing = {
 
 export const footer = {
   columns: [
-    { title: "Portfolio", links: [
-      { label: "Exx1 — Markets", href: "/#pillars" },
-      { label: "PRVAI — Intelligence", href: "/#pillars" },
-      { label: "PRV Wallet — Money", href: "/#pillars" },
+    { title: "Products", links: [
+      { label: "Exx1 — Markets", href: "/exx1" },
+      { label: "PRVAI — Intelligence", href: "/prvai" },
+      { label: "PRV Wallet — Money", href: "/prv-wallet" },
+      { label: "Diwan OS — Arabic-first AI", href: "/diwan-os" },
+      { label: "EQWT1 — Trading", href: "/eqwt1" },
     ] },
     { title: "Navigate", links: [
       { label: "The Model", href: "/#model" },

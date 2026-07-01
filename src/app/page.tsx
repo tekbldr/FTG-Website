@@ -20,6 +20,7 @@ import {
   site,
 } from "@/content/site";
 import { SocialLink } from "@/components/marketing/SocialIcons";
+import { getProduct, LOGO_DIM } from "@/content/products";
 
 const d = (i: number) => (i ? ` d${i}` : "");
 
@@ -142,25 +143,53 @@ export default function Home() {
               <h2>Three businesses. One system.</h2>
             </div>
             <div className="pillars">
-              {pillars.map((p, i) => (
-                <div className={`pillar reveal${d(i)}`} key={p.name}>
-                  <span className="pk">{p.kicker}</span>
-                  <h3>
-                    {p.name}
-                    <span className="dot">.</span>
-                  </h3>
-                  <span className="role">{p.role}</span>
-                  <p>{p.body}</p>
-                  <div className="tags">
-                    {p.tags.map((t) => (
-                      <span key={t}>{t}</span>
-                    ))}
-                    {pillarX[p.name] && (
-                      <SocialLink kind="x" handle={pillarX[p.name].handle} url={pillarX[p.name].url} compact />
-                    )}
+              {pillars.map((p, i) => {
+                const prod = getProduct(p.name === "PRVAI" ? "prvai" : p.name === "PRV Wallet" ? "prv-wallet" : "exx1");
+                const logo = prod?.wordmark ?? prod?.mark;
+                const dim = logo ? LOGO_DIM[logo] : undefined;
+                return (
+                  <div className={`pillar reveal${d(i)}`} key={p.name}>
+                    <span className="pk">{p.kicker}</span>
+                    <Link href={p.href} className="pillar-card-link" aria-label={p.name}>
+                      {logo && dim ? (
+                        <Image
+                          src={logo}
+                          alt={p.name}
+                          width={dim[0]}
+                          height={dim[1]}
+                          unoptimized
+                          className={"pillar-logo" + (prod?.markContain ? " contain" : "")}
+                        />
+                      ) : (
+                        <h3>
+                          {p.name}
+                          <span className="dot">.</span>
+                        </h3>
+                      )}
+                      <span className="role">{p.role}</span>
+                    </Link>
+                    <p>{p.body}</p>
+                    <Link href={p.href} className="more">
+                      Explore {p.name} →
+                    </Link>
+                    <div className="tags">
+                      {p.tags.map((t) => (
+                        <span key={t}>{t}</span>
+                      ))}
+                      {pillarX[p.name] && (
+                        <SocialLink kind="x" handle={pillarX[p.name].handle} url={pillarX[p.name].url} compact />
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
+            </div>
+            <div className="more-products reveal d1">
+              <span className="idx">ALSO FROM FTG</span>
+              <div className="more-row">
+                <Link href="/diwan-os" className="more-chip">Diwan OS — Arabic-first AI OS →</Link>
+                <Link href="/eqwt1" className="more-chip">EQWT1 — Multi-asset trading →</Link>
+              </div>
             </div>
           </div>
         </section>
