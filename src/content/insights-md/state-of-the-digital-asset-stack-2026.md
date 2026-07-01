@@ -1,61 +1,56 @@
-This is the first edition of an annual benchmark we intend to publish every year: FTG Research's read on where the digital-asset "stack" is actually consolidating — not where the price went, but where the *infrastructure* is being built, hardened, and connected. We define the layers, mark the state of each, and set a baseline we will track over time.
+This is the first edition of a benchmark we intend to publish every year. Not a price forecast — there are enough of those, and they age badly — but a map of where the digital-asset *stack* is actually consolidating: where the infrastructure is being built, hardened, regulated, and connected. We define the layers, mark the honest state of each, and set a baseline we will re-measure next year and the year after, so that over time this becomes a record of what got built rather than what got hyped.
 
-A note on method and honesty: where we cite capacity, product, or performance figures, they are as announced by the named entity and are frequently **forward-looking projections**, not audited reality. We preserve those qualifiers on purpose, and we deliberately avoid ranking specific commercial competitors — this is a map of the terrain, not a scoreboard.
+A word on method. Where we cite figures, they are attributed to their source and, where they are projections or vendor metrics, flagged as such. We do not rank named commercial competitors. This is a map of the terrain, not a scoreboard, and the terrain is more honest than the leaderboards.
 
 ## What we mean by "the stack"
 
-Strip the digital economy down to what has to work, and four layers remain:
+Strip the digital economy to what has to work and four layers remain: **venues** where value is priced and traded, **custody** for how it is held safely, **settlement** for how it moves and becomes final, and **intelligence** for the systems that decide what to do. The thesis of the benchmark is that these four are converging into a single stack, and that the advantage is migrating to whoever owns the seams between them.
 
-1. **Venues & liquidity** — where value is priced and traded.
-2. **Custody** — how value is held safely, custodial and self-custodial.
-3. **Settlement** — how value moves and becomes final, increasingly via regulated stablecoins.
-4. **Intelligence** — the systems that decide what to do, increasingly able to act on their own.
+## Layer one — venues and liquidity
 
-The thesis of this benchmark is simple: **these layers are converging into one stack, and the advantage is moving to whoever owns the seams between them.**
-
-## Layer 1 — Venues & liquidity
-
-The venue layer is consolidating around **regulated liquidity**. The market has learned, expensively, that an exchange's real product is trust: fair matching, market integrity, and clean fiat-to-digital on-ramps under a clear regulatory regime. The Gulf's early, explicit frameworks (Dubai's VARA, Abu Dhabi's ADGM/FSRA) have made it a place where regulated venues can be built deliberately rather than retrofitted. We do not rank specific exchanges here; the durable trend is that **liquidity is migrating toward venues that can prove they are safe and compliant**, not just deep.
+The venue layer is consolidating around one word: trust. The market has learned, at catastrophic expense, that an exchange's real product is not its interface but its integrity — fair matching, honest surveillance, clean and compliant on-ramps. The jurisdictions that wrote clear rules early are where serious venues can now be built deliberately rather than retrofitted; Dubai's VARA (established under Law No. 4 of 2022) and Abu Dhabi's ADGM/FSRA are the clearest examples. We do not rank exchanges here. The durable trend is that liquidity is migrating toward venues that can *prove* they are safe and compliant, not merely claim to be deep.
 
 **2026 read:** consolidating, and increasingly regulated. Liquidity remains the gravity of the whole stack.
 
-## Layer 2 — Custody & self-custody
+## Layer two — custody, and the lesson it keeps teaching
 
-Custody is where the industry's largest failures happened, and where its most important progress is now being made — in two directions at once. On the institutional side, custody has professionalized into a discipline of segregation, key management, and provable controls. On the consumer side, **account abstraction** (standards like ERC-4337 and EIP-7702) and social recovery are finally making **self-custody usable** — spending limits, session keys, and recovery that does not depend on a single fragile seed phrase.
+Custody is where this industry's largest disasters happened, and it is worth being precise about why, because the lesson keeps getting mis-drawn. The catastrophes were not trading losses. **Celsius** told customers it was safer than a bank, urged them to "unbank," and then misused their assets; when it froze withdrawals in June 2022, roughly **$4.7 billion** was trapped, and its founder was later sentenced to twelve years for fraud. **FTX** lent customer deposits to an affiliate and concealed it, leaving a hole of around **$8 billion**. **Mt. Gox**, a decade earlier, lost on the order of **850,000 bitcoin** straight out of its wallets. These were failures of custody and, in the prosecuted cases, deliberate fraud — not the market moving against a clever trade. The fix is not a cleverer trade either. It is segregated custody, provable reserves, and controls designed to be verified rather than trusted.
 
-**2026 read:** bifurcating and maturing. The open question is ergonomics, not cryptography — self-custody's remaining barriers are about usability and recovery, not security primitives.
+The consumer side of custody is finally maturing too. Account abstraction — the **EIP-7702** upgrade shipped on Ethereum in May 2025 among them — makes self-custody genuinely usable, enabling social recovery, gas sponsorship, and batching, so that holding your own keys no longer means betting everything on a single fragile phrase. The cryptography of self-custody is largely solved; the ergonomics are the live frontier.
 
-## Layer 3 — Settlement & stablecoins
+**2026 read:** the failure mode is understood, the fix is known, and the open work is making provable custody and usable self-custody the default rather than the exception.
 
-Settlement is the layer quietly becoming plumbing. Regulated stablecoins are moving from trading convenience to a genuine payments rail, and the Gulf's payment-token frameworks (the UAE central bank's regime among them) are treating them as supervised infrastructure. The clearest 2026 signal came from outside crypto entirely: **Mastercard's June 2026 "Agent Pay for Machines"** settles across cards, bank accounts, **and stablecoins**, down to fractions of a cent — an announced, partner-stage capability, but a structural statement that stablecoins now sit alongside cards as settlement.
+## Layer three — settlement, quietly becoming plumbing
 
-**2026 read:** the fastest-moving layer, and the most under-appreciated. Regulated settlement is where "crypto" quietly becomes "payments."
+Settlement is the fastest-moving and most under-appreciated layer. The old cross-border network is retreating — the Bank for International Settlements documented active correspondent-banking relationships falling roughly **20% between 2011 and 2018** even as payment volumes grew — and regulated stablecoins are flowing into the gap. Chainalysis's adjusted metric put stablecoin "real economic volume" near **$28 trillion in 2025** (a vendor methodology, and explicitly not the same as "payments," which run far lower — we keep that distinction sharp). The Gulf is regulating it as infrastructure: the **CBUAE Payment Token Services Regulation** (2024), live dirham stablecoins, and the central bank's own **Aani** instant-payments rail. And the clearest signal came from outside crypto entirely — **Mastercard's June 2026 "Agent Pay for Machines"** settles across cards, accounts, and stablecoins alike.
 
-## Layer 4 — Intelligence & agents
+**2026 read:** the most under-appreciated layer. Regulated settlement is where "crypto" quietly becomes "payments," and the incumbents have started building for it.
 
-The newest layer of the stack is intelligence that can transact. Two forces are meeting: the Gulf's build-out of **sovereign-scale compute** (Saudi Arabia's HUMAIN–NVIDIA program, projected at up to 500MW over five years; the UAE's Stargate cluster, first 200MW expected live in 2026) and frontier **Arabic models** (Jais 2, Falcon-H1 Arabic, ALLaM). Layer that intelligence on top of agentic payment rails and you get software that can act with real value — which is why the wallet, not the model, becomes the surface where this layer touches the others.
+## Layer four — intelligence, and the number nobody checks
 
-**2026 read:** the highest-variance layer. Enormous announced capacity; the number to watch is *utilization*, not headline megawatts, and independent benchmarks, not vendor superlatives.
+The newest layer is intelligence that can transact, and it is the highest-variance one. Two forces are meeting: the Gulf's build-out of sovereign-scale compute (Saudi Arabia's HUMAIN–NVIDIA program, projected at up to 500 megawatts over five years; the UAE's Stargate cluster, first 200 megawatts expected live in 2026) and a wave of frontier Arabic models (Jais 2, Falcon-H1, ALLaM). Layer that intelligence onto agentic settlement rails and you get software that can act with real value — which is why the wallet, not the model, becomes the surface where this layer touches the others. The honest number to watch here is not announced megawatts or leaderboard scores; it is *utilization*, which lags the headlines badly.
+
+**2026 read:** enormous announced capacity, thin proven usage. Watch what runs, not what was announced.
 
 ## The FTG Stack Index
 
-We are establishing a baseline we will re-mark each year, scored qualitatively across four axes rather than as a single number:
+We are setting a baseline we will re-mark each year, scored qualitatively across four axes rather than as a single number:
 
 - **Regulatory clarity** — are the rules explicit and stable?
 - **Consolidation** — is activity concentrating around trusted, connected infrastructure?
-- **Interoperability of the seams** — do the layers actually connect (shared identity, settlement, memory)?
-- **Real usage vs. announced capacity** — is capacity energized and in use, or still a press release?
+- **The seams** — do the layers actually connect (shared identity, settlement, memory)?
+- **Real usage versus announced capacity** — is capacity energized and in use, or still a press release?
 
-Our 2026 baseline: **clarity is high and rising** (especially in the Gulf); **consolidation is real** at the venue and settlement layers; **the seams are still mostly open** — the connective tissue between layers is the least-built and most valuable part; and **usage is lagging announcements**, particularly in AI compute and agentic payments.
+Our 2026 baseline: **clarity is high and rising**, especially in the Gulf. **Consolidation is real** at the venue and settlement layers. **The seams are still mostly open** — the connective tissue between layers is the least-built and most valuable part. And **usage lags announcements**, most acutely in AI compute and agentic payments.
 
-## The 2026 read, in one line
+## The one-line read
 
 > Liquidity, custody, settlement, and intelligence are converging into one stack — and the prize is the seams between them, which almost no one owns yet.
 
-That gap — owned, connected seams — is the whole reason FTG builds and operates across markets, money, and intelligence rather than picking one. Next year, we will mark this baseline again and show our work.
+That gap — owned, connected seams — is the entire reason FTG builds and operates across markets, money, and intelligence rather than picking one. Next year we will mark this baseline again, and show our work.
 
 ---
 
 ### Notes & sources
 
-Figures are as announced by the cited entities and are, in several cases, forward-looking rather than deployed: NVIDIA (HUMAIN, 2025); G42/SoftBank (Stargate UAE, 2025); MBZUAI/Inception, TII, SDAIA (Arabic models, 2025–2026); Mastercard (Agent Pay for Machines, June 2026). Standards referenced: ERC-4337, EIP-7702, ERC-5564. Regulatory references (VARA, ADGM/FSRA, CBUAE payment-token regime) are high-level and evolve; superlatives are attributed to their sources and not independently endorsed. This benchmark is a qualitative map, not investment advice, and intentionally does not rank named commercial competitors.
+Figures are attributed and, where forward-looking or vendor-derived, flagged: custody-failure figures trace to DOJ/SEC/court filings via reputable reporting (Celsius, FTX, Mt. Gox); the stablecoin figure is Chainalysis's adjusted "real economic volume" metric (2025), not payment volume; correspondent-banking decline is from the BIS (2011–2018); EIP-7702 shipped in Ethereum's Pectra upgrade (May 2025); UAE regulatory references are from CBUAE and VARA publications; AI compute and model references are announced, forward-looking programs with superlatives attributed to their owners. This benchmark is a qualitative map, not investment advice, and intentionally does not rank named commercial competitors.
