@@ -1,28 +1,25 @@
-A keystone is the wedge-shaped stone at the top of an arch. It carries no more weight than the others, but remove it and the arch collapses — every other stone depends on it holding. In the stack we are building, the exchange is the keystone.
+A keystone is the wedge-shaped stone at the very top of an arch. It is not larger than the others and it carries no more weight, but it is the one that locks the whole structure into place. Remove it and the arch does not sag. It collapses, because every other stone was, without appearing to, depending on it. In the stack we are building, the exchange is the keystone, and this is the argument for why we take that position first.
 
-## Liquidity is gravity
+## Start with a question of dependency
 
-Start from first principles. What makes a wallet useful? That you can *do* something with what's inside it — convert, settle, pay, earn. What makes an AI agent useful in finance? That it can act into a market deep enough to absorb the action without moving the price against you. Both depend on the same thing: liquidity. Liquidity is the gravity of the digital economy — the force that pulls activity toward a venue and keeps it there.
+Ask what a wallet is actually good for and you get an honest answer only when you push on it. Storage? A locked drawer stores things too. A wallet earns its keep the moment you can *do* something with what is inside — convert, settle, earn, pay — and every one of those verbs depends on there being a deep, reliable market on the other side. Ask what an AI agent in finance is good for and you hit the same wall. An agent that can reason brilliantly about a trade but cannot execute it into a market deep enough to absorb the order without moving the price is a very expensive commentator.
 
-So the first position we take is the venue where value is priced and traded, because it is the precondition for everything else being useful.
+Both of them, the wallet and the agent, are quietly leaning on the same stone. That stone is liquidity, and liquidity is the gravity of the digital economy — the force that pulls activity toward a venue and holds it there. So the first position to take is the venue where value is priced and traded, because it is the precondition for everything else being worth building.
 
-## What "owning the venue" actually means
+## The keystone is not a website with an order book
 
-A serious exchange is not a website with an order book. It is a stack of hard, unglamorous disciplines:
+It is worth being precise about what "owning the venue" means, because the word "exchange" gets applied to things that are barely more than a skin over someone else's infrastructure. A serious venue is a stack of hard disciplines: a matching engine fast and fair enough to be trusted by traders and institutions alike; custody rigorous enough that the assets are actually there, provably, which is exactly where most catastrophic failures in this industry happened; surveillance and risk controls that keep the market honest; and clean, compliant on- and off-ramps between traditional and digital value. Each is a moat when done well and a disaster when done badly. There is very little middle ground.
 
-- **A matching engine** fast and fair enough to be trusted by traders and institutions alike.
-- **Custody discipline** — the operational and cryptographic rigor to hold assets safely, which is where most failures in this industry actually happen.
-- **Market integrity** — surveillance, risk controls, and the boring machinery that keeps a market honest.
-- **On- and off-ramps** that bridge traditional and digital value cleanly and compliantly.
+## Why we own it rather than rent it
 
-Each of these is a moat if you do it well and a catastrophe if you do it badly. That is why we are building **Exx1** from the metal up rather than renting someone else's infrastructure: the venue is where trust in the entire stack is either earned or squandered.
+We are building this keystone from the metal up rather than licensing it, and the reason follows directly from the metaphor. A keystone you rent is a keystone a landlord can reprice, throttle, or drop. If the venue is where trust in the entire stack is earned or lost — and it is — then renting it means renting your trustworthiness from a third party whose incentives are not yours. More concretely: the parts a white-label vendor hides from you are the parts that matter most, which means outsourcing the exchange is outsourcing precisely the things you most need to be accountable for.
 
-## The keystone unlocks the loop
+## What the keystone unlocks
 
-Once the venue exists, the rest of the arch can stand on it. The wallet settles against the exchange's liquidity. The intelligence layer transacts into real markets. Activity generated in the wallet and by the AI flows back to the venue as volume, which deepens liquidity, which makes the wallet and the AI more useful still. Remove the keystone and that loop never forms; put it in place and the whole structure holds.
+Set the stone in place and the rest of the arch can finally stand on it. The wallet settles against the venue's liquidity, so its verbs work. The intelligence layer transacts into real markets, so its actions are more than suggestions. And the activity generated by the wallet and the agent flows back to the venue as volume, which deepens liquidity, which makes the wallet and the agent more useful still. That is the compounding loop, and notice that it cannot even *begin* without the keystone. Remove the exchange and there is no market for the wallet to be useful against and nothing for the agent to act into. The loop never forms; the arch never stands.
 
 > Liquidity is the gravity of the digital economy. The venue is the first position we take — the layer everything else settles against.
 
-We start with the exchange not because it is the flashiest layer, but because it is the one the others cannot do without. That is what a keystone is for.
+We start with the exchange not because it is the most exciting layer to demo, but because it is the one the others literally cannot do without. That is what a keystone is for, and it is why it goes in first.
 
-*Exx1 is in active build. This piece describes the role the venue plays in the group's architecture, not a live product.*
+*Exx1, the group's exchange, is in active build. This piece describes the role the venue plays in the group's architecture, not a live product.*

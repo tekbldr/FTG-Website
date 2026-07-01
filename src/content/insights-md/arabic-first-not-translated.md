@@ -1,49 +1,25 @@
-There is a quiet assumption baked into most AI products: that the world's languages are dialects of English waiting to be translated. Build the model in English, bolt on a translation layer, and call it multilingual. For a language like Arabic — spoken by hundreds of millions of people across more than twenty countries — that assumption is not just lazy. It produces systems that are subtly, persistently wrong.
+There is a quiet assumption baked into most AI products, and it is worth saying out loud because so much follows from it: that the world's languages are essentially dialects of English waiting to be translated. Build the model in English, wrap it in a translation layer, and call the result multilingual. For a language spoken by four hundred million people across more than twenty countries, that assumption is not merely lazy. It produces systems that are confidently, persistently wrong in ways their builders rarely notice, because the builders do not speak the language well enough to catch them.
 
-We build Arabic-first because Arabic is a design constraint, not a translation target.
+We take the opposite stance as a design principle, not a marketing line. Arabic is a first-class constraint we build around, not a translation target we bolt on afterward. This piece is about *why* that stance matters and how it shapes what we build; for the deeper technical account of the gap itself, we wrote [a longer research piece](/insights/the-arabic-ai-gap).
 
-## Translation is not understanding
+## Translation preserves the words and loses everything else
 
-Arabic is genuinely hard for machines, in ways that translation cannot paper over:
+The reason a translate-in, translate-out architecture fails is subtle, and it is not about accuracy of vocabulary. Translation preserves propositional content — the literal claim of a sentence — and quietly discards the rest: register, dialect, the cultural default, the diacritic that disambiguates a word, the idiom that does not survive the round trip. A system that translates its way through Arabic is fluent the way a phrasebook is fluent. It can get you a hotel room. It cannot get you *understood*, and the difference is exactly the part that makes an assistant feel like it belongs to you rather than to a call center in another country.
 
-- **Diglossia.** The written standard (Modern Standard Arabic) and the spoken dialects — Gulf, Egyptian, Levantine, Maghrebi and more — differ enough that a model fluent in one can be lost in another. A person in Riyadh and a person in Casablanca write "the same" language and speak very different ones.
-- **Rich morphology.** Arabic packs enormous meaning into word structure — roots, patterns, prefixes and suffixes — so a single written form can carry what English needs a whole phrase to say. Tokenizers built for English fracture this badly.
-- **Script and diacritics.** Right-to-left rendering, optional short-vowel diacritics that change meaning, and letters that shift shape by position all trip up systems trained on Latin text.
+## Why the region had to build its own
 
-None of this is solved by translating outputs. It has to be learned from the language itself, at the level of pretraining data and architecture.
+You cannot fix this with a better translation layer, because the problem lives below the layer, in what the model learned in the first place. A model trained mostly on English is, underneath the multilingual veneer, an English thinker performing Arabic. The only real fix is to learn the language from the language — at the level of pretraining data and architecture — which is precisely why the meaningful shift of the last year was models built as Arabic rather than adapted from English bases. That the region is now producing frontier-scale Arabic models is the structural fact that matters, far more than which of them is momentarily ahead on a given leaderboard.
 
-## The region is building models from the ground up
+## Sovereignty is also about where things live
 
-The meaningful shift of 2025–2026 is that Arabic models are increasingly built *from scratch*, not adapted from English base models:
-
-- **Jais 2** (Inception, a G42 company, with Cerebras and MBZUAI, December 2025) is a 70-billion-parameter model **pretrained from scratch on roughly 2.6 trillion tokens** — a deliberate departure from earlier Arabic models that fine-tuned a Western base.
-- **Falcon-H1 Arabic** (Abu Dhabi's TII, January 2026) uses a hybrid Mamba-Transformer architecture across 3B/7B/34B sizes with context up to 256K tokens.
-- **ALLaM** (Saudi Arabia's SDAIA) makes the field genuinely competitive.
-
-We report these as what they are — real, frontier-scale Arabic models — while deliberately *not* refereeing the "world's leading Arabic model" claims that accompany them. Those are vendor and single-leaderboard superlatives, contested across benchmarks. The important fact is structural: the region now treats Arabic as a first-class training objective.
-
-## Sovereignty is residency, not just language
-
-"Arabic-first" is half the story. The other half is **where the data lives and where the model runs.** For governments, regulated industries, and privacy-conscious users in the Gulf, data residency is increasingly a requirement, not a preference — and the regional build-out of domestic compute (from Saudi Arabia's HUMAIN program to the UAE's Stargate campus) is what makes region-resident AI practical at scale.
-
-A fair caveat we hold ourselves to: "sovereign AI" is an ambition, not a settled state — today's regional compute still depends on globally sourced hardware and export policy. We use the word to describe a direction of travel, not a finished condition.
+Arabic-first is half the story. The other half is residency. For governments, regulated industries, and privacy-conscious users across the Gulf, where the data lives and where the model runs is shifting from a preference to a requirement, and the regional build-out of domestic compute is what makes region-resident AI practical at scale. We are careful with the word "sovereign" — today's regional AI still runs on globally sourced hardware, so we use it to name a direction of travel rather than a finished condition. But the direction is real, and residency is a form of sovereignty no translation setting can offer.
 
 ## What Arabic-first means for how we build
 
-PRVAI, the group's AI arm, takes a deliberate position: **rent the best foundation models; own the durable layer above them** — voice, memory, and orchestration. Arabic-first is expressed less in which base model we use in any given month and more in the layer we own:
+For PRVAI, Arabic-first is expressed less in which base model we happen to call in a given month and more in the layer we own around it. Voice and dialect handled as first-class inputs rather than noise. Memory that respects residency and privacy by design. Orchestration that can route to whichever model — Arabic-native or otherwise — is best for a task, without leaking the durable context that makes the assistant *yours*. Its flagship, Diwan OS, is built on exactly that principle: one agent, many jobs, one memory, in a language and a place it was actually made for.
 
-- **Voice and dialect** handled as first-class inputs, not afterthoughts.
-- **Memory** that respects residency and privacy by design.
-- **Orchestration** that can route to whichever model — Arabic-native or otherwise — is best for the task, without leaking the durable context that makes the assistant *yours*.
+> Arabic is not a translation target. It is a first-class design constraint.
 
-Its flagship, **Diwan OS**, is designed as an Arabic-first lifecycle operating system on exactly that principle: one agent, many jobs, one memory.
+Region-grade AI is not English AI with an accent. It is built for the language, the culture, and the law — and, increasingly, built where those things live. Four hundred million people deserve better than a translation setting, and for the first time, they are getting it.
 
-> Arabic is not a translation target; it is a first-class design constraint.
-
-Region-grade AI is not English AI with an accent. It is built for the language, the culture, and the law — and increasingly, it is built where those things live.
-
----
-
-### Notes & sources
-
-Model specifications are as stated by the developers: MBZUAI/Inception/Cerebras (Jais 2, Dec 2025) and TII (Falcon-H1 Arabic, Jan 2026); ALLaM is SDAIA's Arabic model. Performance superlatives are attributed to those developers, not independently endorsed here. Compute references (HUMAIN, Stargate UAE) are announced, forward-looking programs.
+*Model and compute references are as announced by their developers and are, in several cases, forward-looking. Comparative "leading" claims are attributed to those developers, not endorsed here.*
