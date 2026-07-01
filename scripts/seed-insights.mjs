@@ -28,6 +28,20 @@ function body(slug) {
 
 // slug, title, dek(excerpt), type, vertical, author, date, read, featured?, tags
 const plan = [
+  // ---- AI research flagships (2026) -----------------------------------------
+  { slug: "the-agent-economy", type: "research", vertical: "Applied AI", author: "FTG Research", date: "2026-06-24", read: "11 min read", featured: true, tags: ["Agentic AI", "Payments", "Convergence"],
+    title: "The agent economy: what changes when software can spend",
+    dek: "AI can plan a purchase and then stall at the checkout, because every payment rail ever built assumes a human tapping 'confirm.' The unsolved problem of machines that can pay — and the wallet-shaped answer." },
+  { slug: "context-is-the-moat", type: "research", vertical: "Applied AI", author: "FTG Research", date: "2026-06-27", read: "10 min read", tags: ["AI Memory", "Context", "Agents"],
+    title: "Context is the moat: why AI memory beats model size",
+    dek: "Bigger context windows don't fix memory — a growing pile of research shows they can make it worse. Why durable, structured memory, not parameter count, is the real frontier of useful AI." },
+  { slug: "sovereign-ai-decoded", type: "research", vertical: "Applied AI", author: "FTG Research", date: "2026-06-30", read: "12 min read", tags: ["Sovereign AI", "Compute", "Geopolitics"],
+    title: "Sovereign AI, decoded: the real economics and dependencies",
+    dek: "Every nation wants sovereign AI, then builds it on foreign chips under foreign licenses. An honest map of the sovereignty you can actually own — and the parts that are, for now, out of anyone's hands." },
+  { slug: "the-arabic-ai-gap", type: "research", vertical: "Applied AI", author: "FTG Research", date: "2026-07-01", read: "12 min read", featured: true, tags: ["Arabic AI", "NLP", "Sovereignty"],
+    title: "The Arabic AI gap: why models fail 400 million speakers",
+    dek: "Four hundred million people speak Arabic; the machines were barely taught from it. The structural reasons models fail — diglossia, morphology, tokenization — and how the region is closing the gap at home." },
+
   // ---- Backdated history: Aug 2025 -> Feb 2026 -------------------------------
   { slug: "ftg-launch", type: "news", vertical: "The Group", author: "First Tech Group", date: "2025-08-06", read: "3 min read", tags: ["Launch", "Thesis"],
     title: "First Tech Group launches to build the digital economy's operating stack",

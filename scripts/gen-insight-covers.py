@@ -75,6 +75,10 @@ def make_cover(slug, title, vertical, typ, read=""):
 # slug, title, vertical, type, read  (mirrors scripts/seed-insights.mjs)
 PIECES = [
     ("ftg-launch", "First Tech Group launches to build the digital economy's operating stack", "The Group", "news", "3 min read"),
+    ("the-agent-economy", "The agent economy: what changes when software can spend", "Applied AI", "research", "11 min read"),
+    ("context-is-the-moat", "Context is the moat: why AI memory beats model size", "Applied AI", "research", "10 min read"),
+    ("sovereign-ai-decoded", "Sovereign AI, decoded: the real economics and dependencies", "Applied AI", "research", "12 min read"),
+    ("the-arabic-ai-gap", "The Arabic AI gap: why models fail 400 million speakers", "Applied AI", "research", "12 min read"),
     ("founding-thesis-money-machine-readable", "Our founding thesis: money is becoming machine-readable", "The Group", "article", "8 min read"),
     ("gulf-financial-infrastructure-head-start", "The Gulf's head start: why the next financial infrastructure is being built in the UAE and Saudi Arabia", "MENA", "research", "16 min read"),
     ("exchange-is-the-keystone", "Why the exchange is the keystone of the stack", "Markets", "article", "7 min read"),
