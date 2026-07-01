@@ -16,10 +16,15 @@ export const metadata: Metadata = {
     description: "The infrastructure layer for the digital economy. Markets · Money · Intelligence.",
     url: "https://www.ftg.vc",
     siteName: "First Tech Group",
-    images: ["/og.png"],
+    images: [{ url: "/og.png?v=2", width: 1200, height: 630, alt: "First Tech Group — Engineering what comes next" }],
     type: "website",
   },
-  twitter: { card: "summary_large_image", images: ["/og.png"] },
+  twitter: {
+    card: "summary_large_image",
+    title: "First Tech Group — Engineering what comes next",
+    description: "The infrastructure layer for the digital economy. Markets · Money · Intelligence.",
+    images: ["/og.png?v=2"],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
