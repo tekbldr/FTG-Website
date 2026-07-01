@@ -37,6 +37,15 @@ function inline(text: string, key: string): React.ReactNode {
   return nodes;
 }
 
+export function headingSlug(text: string): string {
+  return text
+    .replace(/\*\*|\*|`|\[|\]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 60);
+}
+
 export function Prose({ content }: { content: string }) {
   const blocks = content.replace(/\r\n/g, "\n").split(/\n{2,}/);
   const out: React.ReactNode[] = [];
@@ -47,13 +56,13 @@ export function Prose({ content }: { content: string }) {
     const k = "b" + i++;
     if (b.startsWith("### ")) {
       out.push(
-        <h3 key={k} className="mb-2 mt-8 text-lg font-bold text-paper">
+        <h3 key={k} id={headingSlug(b.slice(4))} className="mb-2 mt-8 scroll-mt-28 text-lg font-bold text-paper">
           {inline(b.slice(4), k)}
         </h3>
       );
     } else if (b.startsWith("## ")) {
       out.push(
-        <h2 key={k} className="mb-3 mt-11 text-[26px] font-bold leading-[1.15] tracking-[-.01em] text-paper" style={{ textWrap: "balance" }}>
+        <h2 key={k} id={headingSlug(b.slice(3))} className="mb-3 mt-11 scroll-mt-28 text-[26px] font-bold leading-[1.15] tracking-[-.01em] text-paper" style={{ textWrap: "balance" }}>
           {inline(b.slice(3), k)}
         </h2>
       );
