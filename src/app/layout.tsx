@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Arimo, JetBrains_Mono } from "next/font/google";
+import { CookieConsent } from "@/components/CookieConsent";
+import { JsonLd } from "@/components/JsonLd";
+import { organizationSchema } from "@/lib/seo";
 import "./globals.css";
 
 const sans = Arimo({ subsets: ["latin"], weight: ["400", "500", "700"], variable: "--font-sans" });
@@ -35,7 +38,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <noscript>
           <style dangerouslySetInnerHTML={{ __html: ".reveal{opacity:1 !important;transform:none !important}" }} />
         </noscript>
+        <JsonLd data={organizationSchema()} />
         {children}
+        <CookieConsent />
       </body>
     </html>
   );

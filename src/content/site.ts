@@ -162,6 +162,14 @@ export const footer = {
       { label: "Careers", href: "/careers" },
       { label: "Pitch us", href: "/pitch" },
     ] },
+    { title: "Trust & Legal", links: [
+      { label: "Trust & Compliance", href: "/trust" },
+      { label: "Privacy Notice", href: "/legal/privacy" },
+      { label: "Terms of Use", href: "/legal/terms" },
+      { label: "Cookie Notice", href: "/legal/cookies" },
+      { label: "Security", href: "/legal/security" },
+      { label: "Accessibility", href: "/legal/accessibility" },
+    ] },
     { title: "Contact", links: [
       { label: site.email, href: `mailto:${site.email}` },
       { label: site.domain, href: "/" },
