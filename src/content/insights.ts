@@ -47,6 +47,7 @@ export type Insight = {
   isNew?: boolean;
   tags?: string[];
   body?: string; // optional long-form (rendered on the detail page)
+  cover?: string; // cover image path, e.g. /insights/{slug}.png
 };
 
 // Seed set — FTG's own thesis/insight content. Replace/extend with real pieces.

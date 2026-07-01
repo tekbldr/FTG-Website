@@ -51,6 +51,7 @@ export function postToInsight(p: Post): Insight {
     isNew,
     tags: p.tags ?? [],
     body: p.body ?? undefined,
+    cover: p.cover ?? undefined,
   };
 }
 

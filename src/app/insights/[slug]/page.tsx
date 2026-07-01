@@ -1,13 +1,17 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/marketing/SiteHeader";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
 import { LinkButton } from "@/components/ui";
+import { Prose } from "@/components/insights/Prose";
 import { TYPE_LABEL, TYPE_CTA } from "@/content/insights";
 import { getPublishedPostBySlug } from "@/lib/posts";
 
 export const dynamic = "force-dynamic";
+
+const SITE = "https://www.ftg.vc";
 
 function fmtDate(s: string): string {
   return new Date(s).toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
@@ -16,17 +20,60 @@ function fmtDate(s: string): string {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const item = await getPublishedPostBySlug(params.slug);
   if (!item) return { title: "Insights — First Tech Group" };
-  return { title: `${item.title} — FTG Insights`, description: item.excerpt };
+  const url = `${SITE}/insights/${item.slug}`;
+  const images = item.cover ? [{ url: item.cover, width: 1200, height: 630, alt: item.title }] : ["/og.png?v=2"];
+  return {
+    title: `${item.title} — FTG Insights`,
+    description: item.excerpt,
+    alternates: { canonical: url },
+    openGraph: {
+      title: item.title,
+      description: item.excerpt,
+      url,
+      siteName: "First Tech Group",
+      type: "article",
+      publishedTime: item.date,
+      authors: [item.author],
+      tags: item.tags,
+      images,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: item.title,
+      description: item.excerpt,
+      images: item.cover ? [item.cover] : ["/og.png?v=2"],
+    },
+  };
 }
 
 export default async function InsightDetail({ params }: { params: { slug: string } }) {
   const item = await getPublishedPostBySlug(params.slug);
   if (!item) notFound();
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": item.type === "news" ? "NewsArticle" : "Article",
+    headline: item.title,
+    description: item.excerpt,
+    datePublished: item.date,
+    dateModified: item.date,
+    author: { "@type": "Organization", name: item.author, url: SITE },
+    publisher: {
+      "@type": "Organization",
+      name: "First Tech Group",
+      logo: { "@type": "ImageObject", url: `${SITE}/ftg-mark.png` },
+    },
+    image: item.cover ? `${SITE}${item.cover}` : `${SITE}/og.png`,
+    mainEntityOfPage: `${SITE}/insights/${item.slug}`,
+    articleSection: item.vertical,
+    ...(item.tags && item.tags.length ? { keywords: item.tags.join(", ") } : {}),
+  };
+
   return (
     <>
       <SiteHeader />
-      <main className="pt-[100px] pb-24 min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <main className="min-h-screen pb-24 pt-[100px]">
         <article className="mx-auto max-w-[760px] px-5 sm:px-8">
           <Link
             href="/insights"
@@ -41,7 +88,9 @@ export default async function InsightDetail({ params }: { params: { slug: string
             <span className="font-mono text-[11px] uppercase tracking-[.16em] text-[var(--muted)]">{item.vertical}</span>
           </div>
 
-          <h1 className="mt-4 text-3xl font-bold leading-[1.06] tracking-[-.02em] sm:text-5xl">{item.title}</h1>
+          <h1 className="mt-4 text-3xl font-bold leading-[1.08] tracking-[-.02em] sm:text-[2.9rem]" style={{ textWrap: "balance" }}>
+            {item.title}
+          </h1>
 
           <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[11px] uppercase tracking-[.1em] text-[var(--muted-2)]">
             <span>{item.author}</span>
@@ -55,12 +104,22 @@ export default async function InsightDetail({ params }: { params: { slug: string
             ) : null}
           </div>
 
-          <div className="grid-bg mt-8 h-48 rounded-[2px] border border-[var(--line)]" />
+          {item.cover ? (
+            <div className="mt-8 overflow-hidden rounded-[3px] border border-[var(--line)]">
+              <Image src={item.cover} alt={item.title} width={1200} height={630} priority className="h-auto w-full" />
+            </div>
+          ) : (
+            <div className="grid-bg mt-8 h-48 rounded-[2px] border border-[var(--line)]" />
+          )}
 
-          <p className="mt-8 text-lg leading-[1.6] text-paper/90">{item.excerpt}</p>
+          <p className="mt-9 text-xl leading-[1.55] text-paper/90" style={{ textWrap: "pretty" }}>
+            {item.excerpt}
+          </p>
 
           {item.body ? (
-            <div className="mt-6 whitespace-pre-line text-[15.5px] leading-[1.75] text-[var(--muted)]">{item.body}</div>
+            <div className="mt-3">
+              <Prose content={item.body} />
+            </div>
           ) : (
             <p className="mt-6 text-[15px] text-[var(--muted)]">
               The full {TYPE_CTA[item.type].toLowerCase()} is coming soon.
@@ -68,7 +127,7 @@ export default async function InsightDetail({ params }: { params: { slug: string
           )}
 
           {item.tags && item.tags.length > 0 && (
-            <div className="mt-8 flex flex-wrap gap-2">
+            <div className="mt-10 flex flex-wrap gap-2">
               {item.tags.map((t) => (
                 <span
                   key={t}
