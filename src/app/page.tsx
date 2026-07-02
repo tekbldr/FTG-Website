@@ -26,6 +26,16 @@ import { getProduct, LOGO_DIM } from "@/content/products";
 
 const d = (i: number) => (i ? ` d${i}` : "");
 
+// Visual-balance heights for the portfolio card logos: wide wordmarks sit
+// shorter, squarer lockups taller, so all five read as the same size.
+const PILLAR_LOGO_H: Record<string, number> = {
+  "/exx1": 42,
+  "/prvai": 34,
+  "/prv-wallet": 46,
+  "/diwan-os": 44,
+  "/eqwt1": 56,
+};
+
 // Home canonical (title/description/OG inherit from the root layout).
 export const metadata: Metadata = { alternates: { canonical: "https://www.ftg.vc" } };
 
@@ -145,32 +155,38 @@ export default function Home() {
           <div className="wrap">
             <div className="sechead reveal">
               <span className="idx">03 — THE PORTFOLIO</span>
-              <h2>Three businesses. One system.</h2>
+              <h2>Five products. One system.</h2>
             </div>
             <div className="pillars">
               {pillars.map((p, i) => {
-                const prod = getProduct(p.name === "PRVAI" ? "prvai" : p.name === "PRV Wallet" ? "prv-wallet" : "exx1");
+                const prod = getProduct(p.href.replace("/", ""));
                 const logo = prod?.wordmark ?? prod?.mark;
                 const dim = logo ? LOGO_DIM[logo] : undefined;
+                // Per-logo height so wildly different lockup aspect ratios read
+                // as the same visual size across the row.
+                const logoH = PILLAR_LOGO_H[p.href] ?? 40;
                 return (
-                  <div className={`pillar reveal${d(i)}`} key={p.name}>
+                  <div className={`pillar reveal${d(i % 3)}`} key={p.name}>
                     <span className="pk">{p.kicker}</span>
                     <Link href={p.href} className="pillar-card-link" aria-label={p.name}>
-                      {logo && dim ? (
-                        <Image
-                          src={logo}
-                          alt={p.name}
-                          width={dim[0]}
-                          height={dim[1]}
-                          unoptimized
-                          className={"pillar-logo" + (prod?.markContain ? " contain" : "")}
-                        />
-                      ) : (
-                        <h3>
-                          {p.name}
-                          <span className="dot">.</span>
-                        </h3>
-                      )}
+                      <span className="pillar-logo-box">
+                        {logo && dim ? (
+                          <Image
+                            src={logo}
+                            alt={p.name}
+                            width={dim[0]}
+                            height={dim[1]}
+                            unoptimized
+                            className="pillar-logo"
+                            style={{ height: logoH, width: "auto" }}
+                          />
+                        ) : (
+                          <h3>
+                            {p.name}
+                            <span className="dot">.</span>
+                          </h3>
+                        )}
+                      </span>
                       <span className="role">{p.role}</span>
                     </Link>
                     <p>{p.body}</p>
@@ -188,13 +204,6 @@ export default function Home() {
                   </div>
                 );
               })}
-            </div>
-            <div className="more-products reveal d1">
-              <span className="idx">ALSO FROM FTG</span>
-              <div className="more-row">
-                <Link href="/diwan-os" className="more-chip">Diwan OS — Arabic-first AI OS →</Link>
-                <Link href="/eqwt1" className="more-chip">EQWT1 — Multi-asset trading →</Link>
-              </div>
             </div>
           </div>
         </section>

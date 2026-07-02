@@ -43,6 +43,9 @@ export type Product = {
   cta: ProductCTA;
   secondaryCta?: ProductCTA;
   related: string[]; // insight slugs — resolved to titles at render
+  // Answer-first Q&A — rendered on the page AND emitted as FAQPage JSON-LD,
+  // so answer engines and LLMs can quote the canonical version directly.
+  faq: { q: string; a: string }[];
   x?: { handle: string; url: string };
 };
 
@@ -97,7 +100,21 @@ export const products: Product[] = [
       "Exx1 is FTG's centralized digital-asset exchange — matching engine, custody, and surveillance built in-house. The group's fiat-to-digital gateway and liquidity layer. In active build.",
     cta: { label: "Follow build updates on X", href: "https://x.com/exx1_com", external: true, solid: true },
     secondaryCta: { label: "Partner or list — talk to us", href: "mailto:hello@ftg.vc?subject=Exx1%20inquiry" },
-    related: ["exchange-is-the-keystone", "building-exx1-from-the-metal-up", "state-of-the-digital-asset-stack-2026"],
+    related: ["exchange-is-the-keystone", "building-exx1-from-the-metal-up", "state-of-the-digital-asset-stack-2026", "what-supervisors-say-about-ai-in-finance"],
+    faq: [
+      {
+        q: "What is Exx1?",
+        a: "Exx1 is a centralized digital-asset exchange being built in-house by First Tech Group — the matching engine, custody stack, and market surveillance are all built rather than white-labelled. It is designed to be both an excellent standalone venue and the fiat-to-digital gateway the rest of the FTG group settles against.",
+      },
+      {
+        q: "Is Exx1 live for trading?",
+        a: "Not yet. Exx1 is in active build, and FTG does not claim live trading, volumes, or user metrics for it. Build updates are published on X at @exx1_com and in FTG Insights.",
+      },
+      {
+        q: "What makes Exx1 different from other exchanges?",
+        a: "Three choices: build over rent (the matching engine, custody, and surveillance are owned all the way down), custody treated as a first-class engineering discipline with segregation of customer assets and a direction of provable reserves, and regulatory posture treated as a product requirement from the first commit rather than a retrofit.",
+      },
+    ],
     x: { handle: "exx1_com", url: "https://x.com/exx1_com" },
   },
 
@@ -151,7 +168,21 @@ export const products: Product[] = [
       "PRVAI is FTG's applied-AI division: voice, memory, and orchestration above rented foundation models. It builds PRV Copilot and the Arabic-first Diwan OS. In development.",
     cta: { label: "Explore Diwan OS", href: "/diwan-os", solid: true },
     secondaryCta: { label: "Follow @Prv_ai", href: "https://x.com/Prv_ai", external: true },
-    related: ["the-agent-economy", "context-is-the-moat", "the-arabic-ai-gap"],
+    related: ["the-agent-economy", "context-is-the-moat", "the-arabic-ai-gap", "reading-the-2026-ai-index"],
+    faq: [
+      {
+        q: "What is PRVAI?",
+        a: "PRVAI is First Tech Group's applied-AI division. It rents the best available foundation models and owns the durable layer above them — voice, memory, and orchestration. It builds PRV Copilot (the voice-native assistant inside PRV Wallet) and Diwan OS (the Arabic-first lifecycle operating system). Both are in development.",
+      },
+      {
+        q: "Why rent foundation models instead of training your own?",
+        a: "Because frontier models commoditize and depreciate on someone else's schedule and budget. The value that compounds is the private, per-user memory and orchestration layer — competitors can call the same models, but none can reconstruct a user's memory. PRVAI owns that layer.",
+      },
+      {
+        q: "How does PRVAI handle privacy?",
+        a: "The per-user memory graph is designed to be private by construction rather than by policy — held under the user's control, enriched only by their own interactions, with data residency treated as a design requirement for the region.",
+      },
+    ],
     x: { handle: "Prv_ai", url: "https://x.com/Prv_ai" },
   },
 
@@ -205,7 +236,21 @@ export const products: Product[] = [
       "PRV Wallet is FTG's multichain, non-custodial wallet: keys derived and encrypted on-device, zero-knowledge where it counts, PRV Copilot built in. In development.",
     cta: { label: "Follow @Prv1_com", href: "https://x.com/Prv1_com", external: true, solid: true },
     secondaryCta: { label: "Read the design thesis", href: "/insights/privacy-as-mathematics-prv-wallet" },
-    related: ["privacy-as-mathematics-prv-wallet", "after-ftx-self-custody-default", "agents-will-need-wallets"],
+    related: ["privacy-as-mathematics-prv-wallet", "after-ftx-self-custody-default", "agents-will-need-wallets", "the-340-billion-question"],
+    faq: [
+      {
+        q: "What is PRV Wallet?",
+        a: "PRV Wallet is a multichain, non-custodial wallet being built by First Tech Group, where privacy is a property of the system rather than a promise: keys are derived and encrypted on the user's device, zero-knowledge techniques apply privacy where it counts, and the PRV Copilot assistant is built in. It is in development.",
+      },
+      {
+        q: "Does FTG ever hold my funds or keys?",
+        a: "No. PRV Wallet is non-custodial by default — the group never takes possession of user funds, and there is no privileged server-side copy of your keys. The cryptography that controls your assets lives on your device.",
+      },
+      {
+        q: "What is PRV Copilot?",
+        a: "PRV Copilot is the voice-native assistant that lives inside PRV Wallet. It operates strictly within permissions you grant — scoped, auditable, revocable in one move — and it never holds the keys. Delegation is bounded by design, never a blank cheque.",
+      },
+    ],
     x: { handle: "Prv1_com", url: "https://x.com/Prv1_com" },
   },
 
@@ -259,6 +304,20 @@ export const products: Product[] = [
     cta: { label: "Follow @d1wan_ai", href: "https://x.com/d1wan_ai", external: true, solid: true },
     secondaryCta: { label: "Read: Inside Diwan OS", href: "/insights/inside-diwan-os" },
     related: ["inside-diwan-os", "sovereign-ai-decoded", "the-arabic-ai-gap"],
+    faq: [
+      {
+        q: "What is Diwan OS?",
+        a: "Diwan OS is PRVAI's Arabic-first lifecycle operating system: one agent that handles many jobs over a long relationship, with a single private memory underneath. It is built against the two chronic failures of today's assistants — amnesia and fragmentation. It is in development at First Tech Group.",
+      },
+      {
+        q: "What does Arabic-first actually mean?",
+        a: "Dialect and voice are treated as first-class inputs rather than errors to correct, cultural context is assumed rather than bolted on, and data residency in the region is a design property. Arabic is the design constraint, not a translation target.",
+      },
+      {
+        q: "Why call it an operating system?",
+        a: "Because it is the layer other things run on, not another app: it manages resources, remembers state, and coordinates jobs on your behalf — the coordinating intelligence above the apps and the models, holding one memory across all of it.",
+      },
+    ],
     x: { handle: "d1wan_ai", url: "https://x.com/d1wan_ai" },
   },
 
@@ -316,6 +375,20 @@ export const products: Product[] = [
     cta: { label: "Visit eqwt1.com", href: "https://eqwt1.com", external: true, solid: true },
     secondaryCta: { label: "Partner or IB inquiry", href: "mailto:hello@ftg.vc?subject=EQWT1%20partner%20inquiry" },
     related: ["exchange-is-the-keystone", "state-of-the-digital-asset-stack-2026", "markets-money-intelligence-one-stack"],
+    faq: [
+      {
+        q: "What is EQWT1?",
+        a: "EQWT1 is a multi-asset trading platform from First Tech Group — forex, CFDs, and crypto — with copy trading and funded accounts designed as first-class surfaces. Its positioning is institutional-premium and dark-first: 'Prime execution. Markets, refined.'",
+      },
+      {
+        q: "Is EQWT1 live?",
+        a: "EQWT1 is a high-fidelity platform prototype, pre-launch. The brand system, trade terminal, analytics, and copy/funded surfaces exist; connection to a licensed trading and liquidity backend, payments, and live market data are currently in build.",
+      },
+      {
+        q: "What are the risks of trading on EQWT1?",
+        a: "Trading forex, CFDs, and other leveraged products carries significant risk of loss and is not suitable for everyone. For some order flow, EQWT1 may act as counterparty to client trades; this is disclosed in the client agreement. Risk is communicated plainly on the platform, never buried.",
+      },
+    ],
   },
 ];
 

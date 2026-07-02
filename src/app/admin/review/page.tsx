@@ -6,6 +6,7 @@ import { StageMover } from "@/components/admin/StageMover";
 import { FileLink } from "@/components/admin/FileLink";
 import { Scorecard } from "@/components/admin/Scorecard";
 import { DecisionControl } from "@/components/admin/DecisionControl";
+import { AdminPageHeader } from "@/components/admin/ui";
 import { moveSubmissionStage } from "@/lib/actions/admin";
 import { DOC_LABELS, type DocType } from "@/lib/pitch";
 
@@ -80,15 +81,16 @@ export default async function ReviewBoard() {
   return (
     <div>
       <div className="mx-auto max-w-[960px]">
-          <header className="border-b border-[var(--line)] pb-6 flex items-end justify-between gap-4 flex-wrap">
-            <div>
-              <div className="eyebrow">Deal review · {isAdmin ? "Admin" : "Reviewer"}</div>
-              <h1 className="mt-2 text-2xl sm:text-3xl font-bold tracking-[-.02em]">Pitch pipeline</h1>
-            </div>
-            <span className="font-mono text-[12px] text-[var(--muted-2)]">
-              {subs.length} {subs.length === 1 ? "submission" : "submissions"}
-            </span>
-          </header>
+          <AdminPageHeader
+            eyebrow={`Pitch · ${isAdmin ? "Admin" : "Reviewer"}`}
+            title="Pitch pipeline"
+            description="Review submissions against the rubric, record decisions, and move deals through the stages."
+            actions={
+              <span className="font-mono text-[12px] text-[var(--muted-2)]">
+                {subs.length} {subs.length === 1 ? "submission" : "submissions"}
+              </span>
+            }
+          />
 
           {subs.length === 0 && (
             <p className="mt-10 text-center text-[var(--muted)] text-[15px]">

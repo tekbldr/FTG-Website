@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getMyRoles, isSuperAdmin } from "@/lib/rbac";
 import { createClient } from "@/lib/supabase/server";
+import { AdminPageHeader } from "@/components/admin/ui";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Audit — FTG Admin" };
@@ -43,14 +44,12 @@ export default async function AuditPage() {
 
   return (
     <div>
-      <header className="border-b border-[var(--line)] pb-7">
-        <div className="eyebrow">Audit</div>
-        <h1 className="mt-3 text-3xl font-bold tracking-[-.02em] sm:text-4xl">Activity log</h1>
-        <p className="mt-3 max-w-[60ch] text-[15px] text-[var(--muted)]">
-          Every privileged action across the group — role changes, stage moves, decisions, and publishing. Most recent
-          first.
-        </p>
-      </header>
+      <AdminPageHeader
+        eyebrow="Audit"
+        title="Activity log"
+        description="Every privileged action across the group — role changes, stage moves, decisions, and publishing. Most recent first."
+        actions={<span className="font-mono text-[12px] text-[var(--muted-2)]">last {rows.length} events</span>}
+      />
 
       <div className="mt-6 overflow-x-auto">
         <table className="w-full min-w-[720px] text-left">

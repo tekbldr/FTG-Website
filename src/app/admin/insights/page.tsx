@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getMyRoles, canInsights } from "@/lib/rbac";
+import { AdminPageHeader } from "@/components/admin/ui";
 import { getAllPosts, STATUS_LABEL, type PostStatus } from "@/lib/posts";
 
 export const dynamic = "force-dynamic";
@@ -25,22 +26,25 @@ export default async function AdminInsights() {
 
   return (
     <div>
-      <header className="flex flex-wrap items-end justify-between gap-4 border-b border-[var(--line)] pb-7">
-        <div>
-          <div className="eyebrow">Insights · CMS</div>
-          <h1 className="mt-3 text-3xl font-bold tracking-[-.02em] sm:text-4xl">Editorial</h1>
-          <div className="mt-3 flex flex-wrap gap-2 font-mono text-[11px] uppercase tracking-[.1em] text-[var(--muted-2)]">
+      <AdminPageHeader
+        eyebrow="Insights · CMS"
+        title="Editorial"
+        description="Write, review, and publish across the editorial workflow — drafts to published, one table."
+        meta={
+          <div className="flex flex-wrap gap-3 font-mono text-[11px] uppercase tracking-[.1em] text-[var(--muted-2)]">
             {(["published", "in_review", "draft", "archived"] as PostStatus[]).map((s) => (
               <span key={s}>
                 {counts[s] ?? 0} {STATUS_LABEL[s].toLowerCase()}
               </span>
             ))}
           </div>
-        </div>
-        <Link href="/admin/insights/new" className="btn solid">
-          New post
-        </Link>
-      </header>
+        }
+        actions={
+          <Link href="/admin/insights/new" className="btn solid">
+            New post
+          </Link>
+        }
+      />
 
       <div className="mt-6 overflow-x-auto">
         <table className="w-full min-w-[680px] text-left">

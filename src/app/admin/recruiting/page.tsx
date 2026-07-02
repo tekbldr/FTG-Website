@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getMyRoles, canCareers } from "@/lib/rbac";
 import { StageMover } from "@/components/admin/StageMover";
 import { FileLink } from "@/components/admin/FileLink";
+import { AdminPageHeader } from "@/components/admin/ui";
 import { moveApplicationStage } from "@/lib/actions/admin";
 
 export const dynamic = "force-dynamic";
@@ -62,17 +63,16 @@ export default async function RecruitingBoard() {
   return (
     <div>
       <div>
-        <div>
-          <header className="border-b border-[var(--line)] pb-6 flex items-end justify-between gap-4 flex-wrap">
-            <div>
-              <div className="eyebrow">Recruiting · Admin</div>
-              <h1 className="mt-2 text-2xl sm:text-3xl font-bold tracking-[-.02em]">Candidate pipeline</h1>
-            </div>
+        <AdminPageHeader
+          eyebrow="Careers · Recruiting"
+          title="Candidate pipeline"
+          description="Move candidates through the hiring stages. Every move is recorded to the audit history."
+          actions={
             <span className="font-mono text-[12px] text-[var(--muted-2)]">
               {apps.length} {apps.length === 1 ? "application" : "applications"}
             </span>
-          </header>
-        </div>
+          }
+        />
 
         <div className="mt-6 overflow-x-auto">
           <div className="flex gap-3 min-w-max pb-4">

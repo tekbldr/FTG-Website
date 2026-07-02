@@ -54,6 +54,13 @@ Open roles across the group's products; candidates apply and track status in a p
 - Vulnerability reports: hello@ftg.vc, subject "SECURITY".
 - All policies: https://www.ftg.vc/trust
 
+## Study-grounded research library (all figures attributed, never FTG's own claims)
+
+Three reference pieces ground FTG's thesis in third-party studies:
+- "Reading the 2026 AI Index" (/insights/reading-the-2026-ai-index): per Stanford HAI's 2026 AI Index — global private AI investment $344.7B in 2025 (+127.5%), US $285.9B vs China $12.4B, generative AI ~half of funding; 88% organizational adoption; 53% population adoption within three years (faster than PC or internet); UAE population adoption 64% and Singapore 61% vs US 28.3% (24th) — the Gulf adopts from the front.
+- "What the supervisors actually found" (/insights/what-supervisors-say-about-ai-in-finance): per the FSB (Nov 2024), Bank of England Financial Stability in Focus (Apr 2025), BIS Annual Economic Report, and IMF — ~50% of banking respondents have implemented AI (~40% generative), institutions forecast to double AI spending by 2027, 55% of UK financial-services AI use cases involve some autonomous decision-making but only 2% are fully autonomous, and AI-fueled cyberattacks are a mounting stability concern. FTG reads the supervisory risk catalogue (concentration, correlation, opacity, adversaries) as a build specification for trust infrastructure.
+- "The $340 billion question" (/insights/the-340-billion-question): per McKinsey Global Institute — generative AI worth $200–340B annually to banking (9–15% of operating profits) within a $2.6–4.4T economy-wide estimate; per Mastercard and Visa's own announcements — Agent Pay (Apr 2025) with agentic tokens binding credentials to agent/merchant scope/consent, first live agentic payment (Sep 2025), and hundreds of agent-initiated pilot transactions with 100+ partners. FTG's argument: the value lands with whoever engineers bounded, auditable delegation — the wallet, not the chatbot, is the strategic surface.
+
 ## FTG Insights (research)
 
 Problem-first research and field notes written by the FTG Research team. House rules the content follows: projections labelled as projections ("announced", "up to"); superlatives attributed to their sources; regulation named precisely (e.g. Dubai VARA, CBUAE Payment Token Services Regulation); FTG's own unlaunched products never given invented metrics. Index: https://www.ftg.vc/insights

@@ -29,7 +29,7 @@ export type Stat = { n: string; u?: string; label: string };
 
 export const heroStats: Stat[] = [
   { n: "3", label: "Operating pillars — exchange, AI, wallet" },
-  { n: "4", label: "Brands in market and in build" },
+  { n: "5", label: "Brands in market and in build" },
   { n: "400M", u: "+", label: "Arabic-speaking users in the AI beachhead" },
   { n: "1", label: "Shared intelligence & identity backbone" },
 ];
@@ -101,6 +101,22 @@ export const pillars: Pillar[] = [
     body: "A multichain, non-custodial wallet where privacy is mathematics, not a promise. Keys derived and encrypted on-device; PRV Copilot built in. The consumer surface where the group's three threads meet.",
     tags: ["Non-custodial", "6 chains", "ZK"],
     href: "/prv-wallet",
+  },
+  {
+    kicker: "A PRVAI product · Applied AI",
+    name: "Diwan OS",
+    role: "Arabic-first AI",
+    body: "PRVAI's flagship: an Arabic-first lifecycle operating system. One agent that handles many jobs over a long relationship, with a single private memory underneath — dialect and voice as first-class inputs.",
+    tags: ["Arabic-first", "One memory", "Voice"],
+    href: "/diwan-os",
+  },
+  {
+    kicker: "An FTG product · Multi-asset trading",
+    name: "EQWT1",
+    role: "Trading",
+    body: "A multi-asset trading platform — forex, CFDs, and crypto — with copy trading and funded accounts as first-class surfaces. Institutional-premium execution, wrapped in a genuinely modern interface.",
+    tags: ["FX · CFD · Crypto", "Copy trading", "Funded"],
+    href: "/eqwt1",
   },
 ];
 
@@ -203,4 +219,5 @@ export const pillarX: Record<string, { handle: string; url: string }> = {
   Exx1: { handle: "exx1_com", url: "https://x.com/exx1_com" },
   PRVAI: { handle: "Prv_ai", url: "https://x.com/Prv_ai" },
   "PRV Wallet": { handle: "Prv1_com", url: "https://x.com/Prv1_com" },
+  "Diwan OS": { handle: "d1wan_ai", url: "https://x.com/d1wan_ai" },
 };

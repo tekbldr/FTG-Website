@@ -2,7 +2,8 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getProfile } from "@/lib/auth";
 import { getMyRoles, canCareers, canPitch, canInsights, isSuperAdmin, ROLE_LABELS } from "@/lib/rbac";
-import { insights } from "@/content/insights";
+import { AdminPageHeader, StatGrid, StatCard, RoleChips } from "@/components/admin/ui";
+import { getAllPosts } from "@/lib/posts";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Operations — FTG Admin" };
@@ -19,15 +20,17 @@ export default async function AdminOverview() {
   const pitch = canPitch(roles);
   const ins = canInsights(roles);
 
-  const [apps, subs] = await Promise.all([
+  const [apps, subs, jobs, posts] = await Promise.all([
     careers ? count("applications") : Promise.resolve(0),
     pitch ? count("submissions") : Promise.resolve(0),
+    careers ? count("jobs") : Promise.resolve(0),
+    ins ? getAllPosts().then((p) => p.length).catch(() => 0) : Promise.resolve(0),
   ]);
 
-  const kpis: { label: string; value: string | number; href: string }[] = [];
-  if (careers) kpis.push({ label: "Applications", value: apps, href: "/admin/recruiting" });
-  if (pitch) kpis.push({ label: "Submissions", value: subs, href: "/admin/review" });
-  if (ins) kpis.push({ label: "Insights pieces", value: insights.length, href: "/admin/insights" });
+  const kpis: { label: string; value: string | number; hint?: string; href: string }[] = [];
+  if (careers) kpis.push({ label: "Applications", value: apps, hint: `${jobs} open roles`, href: "/admin/recruiting" });
+  if (pitch) kpis.push({ label: "Submissions", value: subs, hint: "Pitch pipeline", href: "/admin/review" });
+  if (ins) kpis.push({ label: "Insights pieces", value: posts, hint: "Editorial CMS", href: "/admin/insights" });
 
   const modules = [
     { show: careers, idx: "01", title: "Careers", body: "Move candidates through the hiring pipeline, scorecards, and stage history.", href: "/admin/recruiting" },
@@ -38,30 +41,19 @@ export default async function AdminOverview() {
 
   return (
     <div>
-      <header className="border-b border-[var(--line)] pb-7">
-        <div className="eyebrow">Operations · {profile?.full_name ?? "FTG"}</div>
-        <h1 className="mt-3 text-3xl font-bold tracking-[-.02em] sm:text-4xl">The operating engine</h1>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {roles.map((r) => (
-            <span
-              key={r}
-              className="rounded-[2px] border border-[var(--line-2)] px-2 py-[5px] font-mono text-[10.5px] uppercase tracking-[.1em] text-[var(--muted)]"
-            >
-              {ROLE_LABELS[r]}
-            </span>
-          ))}
-        </div>
-      </header>
+      <AdminPageHeader
+        eyebrow={`Operations · ${profile?.full_name ?? "FTG"}`}
+        title="The operating engine"
+        description="One console for the whole platform — hiring, deal review, editorial, access, and the audit trail."
+        meta={<RoleChips labels={roles.map((r) => ROLE_LABELS[r])} />}
+      />
 
       {kpis.length > 0 && (
-        <section className="mt-8 grid gap-px overflow-hidden rounded-[2px] border border-[var(--line)] bg-[var(--line)] sm:grid-cols-3">
+        <StatGrid>
           {kpis.map((k) => (
-            <Link key={k.label} href={k.href} className="bg-[var(--ink-2)] p-6 transition hover:bg-ink">
-              <div className="font-mono text-[10.5px] uppercase tracking-[.18em] text-[var(--muted-2)]">{k.label}</div>
-              <div className="mt-2 font-mono text-4xl font-bold tracking-[-.02em] text-paper">{k.value}</div>
-            </Link>
+            <StatCard key={k.label} label={k.label} value={k.value} hint={k.hint} href={k.href} />
           ))}
-        </section>
+        </StatGrid>
       )}
 
       <section className="mt-8">

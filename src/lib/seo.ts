@@ -77,6 +77,21 @@ export function organizationSchema(): Record<string, unknown> {
   };
 }
 
+// The site itself as a schema.org node, tied to the Organization.
+export function webSiteSchema(): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    url: SITE_URL,
+    name: site.name,
+    description:
+      "First Tech Group funds, builds, and operates digital-economy infrastructure — the Exx1 exchange, PRV Wallet, the PRVAI applied-AI division (Diwan OS, PRV Copilot), and the EQWT1 trading platform.",
+    publisher: { "@id": ORG_ID },
+    inLanguage: "en",
+  };
+}
+
 export function breadcrumbSchema(trail: { name: string; path: string }[]): Record<string, unknown> {
   return {
     "@context": "https://schema.org",

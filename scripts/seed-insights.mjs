@@ -28,6 +28,17 @@ function body(slug) {
 
 // slug, title, dek(excerpt), type, vertical, author, date, read, featured?, tags
 const plan = [
+  // ---- Study-grounded AI × fintech research (Jul 2026) -----------------------
+  { slug: "reading-the-2026-ai-index", type: "research", vertical: "Applied AI", author: "FTG Research", date: "2026-07-02", read: "6 min read", featured: true, tags: ["AI Index", "Adoption", "Gulf"],
+    title: "Reading the 2026 AI Index: the numbers, and the Gulf surprise",
+    dek: "Stanford's 2026 AI Index counts $344.7B of private AI investment and the fastest adoption curve on record — with the UAE at 64% population adoption, ahead of the United States. What the data actually says, and what it means for builders here." },
+  { slug: "what-supervisors-say-about-ai-in-finance", type: "research", vertical: "Markets", author: "FTG Research", date: "2026-06-26", read: "6 min read", tags: ["Regulation", "AI in finance", "Financial stability"],
+    title: "What the supervisors actually found: AI in finance, per the FSB, BIS, BoE, and IMF",
+    dek: "Half the banking industry has deployed AI; 2% trusts it to act alone. Inside the supervisory studies — and why their risk catalogue reads less like a warning and more like a build specification." },
+  { slug: "the-340-billion-question", type: "research", vertical: "Money", author: "FTG Research", date: "2026-06-29", read: "6 min read", tags: ["Gen AI", "Banking", "Agentic payments"],
+    title: "The $340 billion question: where gen-AI value in banking actually lands",
+    dek: "McKinsey sizes generative AI in banking at up to $340B a year; the card networks are piloting agent-initiated payments. The value gets captured by whoever engineers the trust in between — the wallet, the delegation, the venue." },
+
   // ---- AI research flagships (2026) -----------------------------------------
   { slug: "the-agent-economy", type: "research", vertical: "Applied AI", author: "FTG Research", date: "2026-06-24", read: "11 min read", featured: true, tags: ["Agentic AI", "Payments", "Convergence"],
     title: "The agent economy: what changes when software can spend",

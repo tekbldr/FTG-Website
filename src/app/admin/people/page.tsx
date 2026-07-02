@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getMyRoles, isSuperAdmin, type ModuleRole } from "@/lib/rbac";
 import { UserRoles } from "@/components/admin/UserRoles";
+import { AdminPageHeader } from "@/components/admin/ui";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "People & Roles — FTG Admin" };
@@ -24,13 +25,16 @@ export default async function PeoplePage() {
 
   return (
     <div>
-      <header className="border-b border-[var(--line)] pb-7">
-        <div className="eyebrow">People &amp; Roles</div>
-        <h1 className="mt-3 text-3xl font-bold tracking-[-.02em] sm:text-4xl">Who can do what</h1>
-        <p className="mt-3 max-w-[60ch] text-[15px] text-[var(--muted)]">
-          Grant module roles. A person can hold several; a super admin can do everything across the group.
-        </p>
-      </header>
+      <AdminPageHeader
+        eyebrow="People &amp; Roles"
+        title="Who can do what"
+        description="Grant module roles. A person can hold several; a super admin can do everything across the group."
+        actions={
+          <span className="font-mono text-[12px] text-[var(--muted-2)]">
+            {(profiles ?? []).length} {(profiles ?? []).length === 1 ? "person" : "people"}
+          </span>
+        }
+      />
 
       <div className="mt-6 overflow-x-auto">
         <table className="w-full min-w-[640px] text-left">

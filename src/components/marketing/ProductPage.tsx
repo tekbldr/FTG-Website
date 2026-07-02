@@ -6,7 +6,7 @@ import { MarketingEffects } from "@/components/marketing/MarketingEffects";
 import { SocialLink } from "@/components/marketing/SocialIcons";
 import { ProductVignette } from "@/components/marketing/ProductVignette";
 import { JsonLd } from "@/components/JsonLd";
-import { breadcrumbSchema, productSchema } from "@/lib/seo";
+import { breadcrumbSchema, faqSchema, productSchema } from "@/lib/seo";
 import { LOGO_DIM, type Product } from "@/content/products";
 import { getPublishedInsights } from "@/lib/posts";
 
@@ -59,6 +59,7 @@ export async function ProductPage({ product }: { product: Product }) {
             description: product.metaDescription,
             image: product.looksLike.find((s) => s.img)?.img ?? product.mark ?? product.wordmark,
           }),
+          faqSchema(product.faq),
         ]}
       />
       <SiteHeader />
@@ -204,6 +205,27 @@ export async function ProductPage({ product }: { product: Product }) {
               Read how FTG handles data, security, and compliance across every product on the{" "}
               <Link href="/trust">Trust &amp; Compliance</Link> page.
             </p>
+          </div>
+        </section>
+
+        {/* FAQ — answer-first, mirrored in FAQPage JSON-LD above */}
+        <section className="blk" style={{ paddingTop: 0 }}>
+          <div className="wrap">
+            <div className="sechead reveal">
+              <span className="idx">QUESTIONS, ANSWERED</span>
+              <h2>The short version.</h2>
+            </div>
+            <div className="mt-8 max-w-[76ch]">
+              {product.faq.map((f, i) => (
+                <details key={f.q} className="faq-item" open={i === 0}>
+                  <summary>
+                    <span className="idx">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="q">{f.q}</span>
+                  </summary>
+                  <p>{f.a}</p>
+                </details>
+              ))}
+            </div>
           </div>
         </section>
 

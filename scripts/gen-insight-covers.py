@@ -74,6 +74,9 @@ def make_cover(slug, title, vertical, typ, read=""):
 
 # slug, title, vertical, type, read  (mirrors scripts/seed-insights.mjs)
 PIECES = [
+    ("reading-the-2026-ai-index", "Reading the 2026 AI Index: the numbers, and the Gulf surprise", "Applied AI", "research", "6 min read"),
+    ("what-supervisors-say-about-ai-in-finance", "What the supervisors actually found: AI in finance, per the FSB, BIS, BoE, and IMF", "Markets", "research", "6 min read"),
+    ("the-340-billion-question", "The $340 billion question: where gen-AI value in banking actually lands", "Money", "research", "6 min read"),
     ("ftg-launch", "First Tech Group launches to build the digital economy's operating stack", "The Group", "news", "3 min read"),
     ("the-agent-economy", "The agent economy: what changes when software can spend", "Applied AI", "research", "11 min read"),
     ("context-is-the-moat", "Context is the moat: why AI memory beats model size", "Applied AI", "research", "10 min read"),
