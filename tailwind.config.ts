@@ -5,8 +5,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#0B0B0E",
-        "ink-2": "#0f0f14",
+        ink: "#000000",
+        "ink-2": "#0A0A0D",
         paper: "#FAFAF7",
         spark: "#FF5E2C",
         graphite: "#26262E",

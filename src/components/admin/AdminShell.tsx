@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { CommandPalette } from "@/components/CommandPalette";
 import type { AdminModules } from "@/lib/roles";
 
 // The operations console: a single fixed sidebar system for the whole
@@ -135,6 +136,8 @@ export function AdminShell({
 
         <main className="admin-content">{children}</main>
       </div>
+      {/* Staff-only quick nav — the public site has no text search by design. */}
+      <CommandPalette />
     </div>
   );
 }

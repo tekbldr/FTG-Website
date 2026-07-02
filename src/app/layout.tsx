@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Arimo, JetBrains_Mono } from "next/font/google";
 import { CookieConsent } from "@/components/CookieConsent";
-import { CommandPalette } from "@/components/CommandPalette";
 import { JsonLd } from "@/components/JsonLd";
 import { organizationSchema, webSiteSchema } from "@/lib/seo";
 import "./globals.css";
@@ -42,7 +41,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd data={[organizationSchema(), webSiteSchema()]} />
         {children}
         <CookieConsent />
-        <CommandPalette />
       </body>
     </html>
   );

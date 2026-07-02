@@ -57,14 +57,6 @@ export function SiteHeader() {
         </nav>
         <div className="flex items-center gap-3">
           <div className="header-actions">
-            <button
-              type="button"
-              className="palette-btn"
-              aria-label="Search and navigate (Command K)"
-              onClick={() => window.dispatchEvent(new CustomEvent("ftg:cmdk"))}
-            >
-              <span aria-hidden>⌘K</span>
-            </button>
             {authed ? (
               <>
                 <button
@@ -104,16 +96,6 @@ export function SiteHeader() {
               {l.label}
             </Link>
           ))}
-          <button
-            type="button"
-            className="btn"
-            onClick={() => {
-              setOpen(false);
-              window.dispatchEvent(new CustomEvent("ftg:cmdk"));
-            }}
-          >
-            Search
-          </button>
           {authed ? (
             <>
               <Link href="/portal" className="btn mt-2" onClick={() => setOpen(false)}>
