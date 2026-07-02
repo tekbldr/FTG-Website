@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Insights — First Tech Group",
   description:
     "FTG's research, founder stories, and field notes on building and operating the digital economy's core infrastructure.",
+  alternates: { canonical: "https://www.ftg.vc/insights" },
 };
 
 export default async function InsightsPage() {

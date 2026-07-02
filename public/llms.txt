@@ -1,0 +1,34 @@
+# First Tech Group (FTG)
+
+> First Tech Group is a venture firm that funds, builds, and operates the companies rebuilding the digital economy — the markets where value trades (Exx1), the wallet where it lives (PRV Wallet), and the intelligence that puts it to work (PRVAI, Diwan OS) — plus EQWT1, a multi-asset trading platform. Operating focus: the Gulf (Saudi Arabia and the UAE), building Arabic-first where it matters. Canonical site: https://www.ftg.vc
+
+Key facts (stated carefully): FTG products Exx1, PRV Wallet, PRVAI/Diwan OS are in active build/development — no live trading, volumes, or user metrics are claimed. EQWT1 is a high-fidelity platform prototype, pre-launch. Statements about third parties in FTG Insights attribute projections and superlatives to their sources.
+
+## Products
+
+- [Exx1](https://www.ftg.vc/exx1): Centralized digital-asset exchange built in-house ("from the metal up") — matching engine, custody, surveillance. The group's fiat↔digital gateway and liquidity layer. In active build.
+- [PRVAI](https://www.ftg.vc/prvai): FTG's applied-AI division. Rents foundation models, owns the durable layer — voice, memory, orchestration. Ships PRV Copilot and Diwan OS. In development.
+- [PRV Wallet](https://www.ftg.vc/prv-wallet): Multichain non-custodial wallet; keys derived and encrypted on-device; zero-knowledge where it counts; PRV Copilot built in. In development.
+- [Diwan OS](https://www.ftg.vc/diwan-os): Arabic-first lifecycle operating system — one agent, many jobs, one private memory. A PRVAI product, in development.
+- [EQWT1](https://www.ftg.vc/eqwt1): Multi-asset trading platform (forex, CFDs, crypto) with copy trading and funded accounts. Institutional-premium, dark-first. Prototype, pre-launch.
+
+## Core pages
+
+- [Home](https://www.ftg.vc/): The fund–build–operate model, the three-pillar portfolio, and the compounding loop between them.
+- [FTG Insights](https://www.ftg.vc/insights): Research and field notes — problem-first, primary-sourced, superlatives attributed.
+- [Careers](https://www.ftg.vc/careers): Open roles, culture, benefits, interview process, visa & relocation policy.
+- [Pitch us](https://www.ftg.vc/pitch): Founder intake — pre-seed to Series A at the convergence of digital assets, AI, and privacy.
+- [Founder FAQ](https://www.ftg.vc/pitch/faq): Stage, geography, process, deck protection, NDA stance.
+- [What a good FTG pitch looks like](https://www.ftg.vc/pitch/what-good-looks-like): The investment team's guidance, mapped to the evaluation rubric.
+
+## Trust & compliance
+
+- [Trust & Compliance hub](https://www.ftg.vc/trust): Posture summary and all policies.
+- [Privacy Notice](https://www.ftg.vc/legal/privacy): Data in the EU (Frankfurt); GDPR + Saudi/UAE PDPL rights; 6-month purge of unsuccessful applications and declined submissions.
+- [Security](https://www.ftg.vc/legal/security): Row-level security, private scanned storage, 60-second signed downloads, audit trails.
+
+## Contact
+
+- General & media: hello@ftg.vc
+- Founders & partnerships: founders@ftg.vc
+- X: https://x.com/ftg_vc · Instagram: https://instagram.com/firsttechgroup

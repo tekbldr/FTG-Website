@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import type { Metadata } from "next";
 import { SiteHeader } from "@/components/marketing/SiteHeader";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
 import { HeroCanvas } from "@/components/marketing/HeroCanvas";
@@ -23,6 +24,9 @@ import { SocialLink } from "@/components/marketing/SocialIcons";
 import { getProduct, LOGO_DIM } from "@/content/products";
 
 const d = (i: number) => (i ? ` d${i}` : "");
+
+// Home canonical (title/description/OG inherit from the root layout).
+export const metadata: Metadata = { alternates: { canonical: "https://www.ftg.vc" } };
 
 export default function Home() {
   return (

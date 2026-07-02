@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/marketing/SiteFooter";
 import { LinkButton } from "@/components/ui";
 import { Prose, headingSlug } from "@/components/insights/Prose";
 import { TYPE_LABEL, TYPE_CTA } from "@/content/insights";
+import { products } from "@/content/products";
 import { getPublishedPostBySlug } from "@/lib/posts";
 
 export const dynamic = "force-dynamic";
@@ -53,6 +54,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function InsightDetail({ params }: { params: { slug: string } }) {
   const item = await getPublishedPostBySlug(params.slug);
   if (!item) notFound();
+
+  // Reverse of the product pages' "related reading": products that cite this
+  // piece link back to it, so readers can walk thesis → product and back.
+  const relatedProducts = products.filter((p) => p.related.includes(item.slug));
 
   const body = item.body ?? "";
   const headings = body
@@ -181,6 +186,19 @@ export default async function InsightDetail({ params }: { params: { slug: string
                 </span>
               ))}
             </div>
+          )}
+
+          {relatedProducts.length > 0 && (
+            <aside className="mt-12 border-t border-[var(--line)] pt-8" aria-label="Related FTG products">
+              <div className="idx">THE PRODUCTS BEHIND THIS THINKING</div>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {relatedProducts.map((p) => (
+                  <Link key={p.slug} href={`/${p.slug}`} className="more-chip">
+                    {p.name} — {p.tagline}
+                  </Link>
+                ))}
+              </div>
+            </aside>
           )}
 
           <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--line)] pt-8">
