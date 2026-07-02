@@ -13,7 +13,6 @@ import {
   pillars,
   pillarX,
   loopIntro,
-  loopNodes,
   loopLegend,
   whyNow,
   founders,
@@ -22,6 +21,7 @@ import {
 } from "@/content/site";
 import { SocialLink } from "@/components/marketing/SocialIcons";
 import { ParallaxImage } from "@/components/marketing/ParallaxImage";
+import { CompoundLoop } from "@/components/marketing/CompoundLoop";
 import { getProduct, LOGO_DIM } from "@/content/products";
 
 const d = (i: number) => (i ? ` d${i}` : "");
@@ -55,7 +55,7 @@ export default function Home() {
                 {site.tagline}
               </div>
             </div>
-            <ParallaxImage className="hero-art reveal d2" drift={16} tilt={3}>
+            <ParallaxImage className="hero-art reveal d2" drift={38} scale={0.05} tilt={3}>
               <Image
                 src="/hero-stack.png"
                 alt="Region-grade Arabic AI and data residency converging into FTG's applications, platform, data and infrastructure stack."
@@ -127,7 +127,7 @@ export default function Home() {
                 {"”"}
               </blockquote>
             </div>
-            <ParallaxImage className="group-art reveal d1" drift={26} tilt={2.4}>
+            <ParallaxImage className="group-art reveal d1" drift={64} scale={0.07} rotate={-2.5} tilt={2.4}>
               <Image
                 src="/group-rocket.png"
                 alt="FTG wireframe rocket launching from its platform — funding, building, and operating the stack."
@@ -208,51 +208,7 @@ export default function Home() {
               <p>{loopIntro.body}</p>
             </div>
             <div className="loop">
-              <svg
-                className="loopsvg reveal"
-                viewBox="0 0 420 420"
-                role="img"
-                aria-label="The FTG compounding loop"
-              >
-                <defs>
-                  <marker id="arr" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto">
-                    <path d="M0,0 L6,3 L0,6 Z" fill="#FF5E2C" />
-                  </marker>
-                </defs>
-                <g fill="none" stroke="var(--line-2)" strokeWidth="1.4">
-                  <path className="flow" d="M210,70 A140,140 0 0,1 350,210" markerEnd="url(#arr)" />
-                  <path className="flow" d="M350,210 A140,140 0 0,1 210,350" markerEnd="url(#arr)" />
-                  <path className="flow" d="M210,350 A140,140 0 0,1 70,210" markerEnd="url(#arr)" />
-                  <path className="flow" d="M70,210 A140,140 0 0,1 210,70" markerEnd="url(#arr)" />
-                </g>
-                <circle cx="210" cy="210" r="34" fill="none" stroke="var(--line-2)" />
-                <text
-                  x="210"
-                  y="214"
-                  textAnchor="middle"
-                  fontFamily="var(--font-mono)"
-                  fontSize="15"
-                  fontWeight="700"
-                  fill="#FAFAF7"
-                >
-                  FTG
-                </text>
-                {loopNodes.map((n) => (
-                  <g className="node" data-i={n.i} key={n.i}>
-                    <circle cx={n.cx} cy={n.cy} r="30" fill="var(--ink-2)" stroke="var(--line-2)" />
-                    <text
-                      x={n.cx}
-                      y={n.cy + 4}
-                      textAnchor="middle"
-                      fontFamily="var(--font-mono)"
-                      fontSize={n.fontSize}
-                      fill="#FAFAF7"
-                    >
-                      {n.label}
-                    </text>
-                  </g>
-                ))}
-              </svg>
+              <CompoundLoop />
               <div className="legend reveal d1">
                 {loopLegend.map((l) => (
                   <div className="li" data-i={l.i} key={l.i}>
