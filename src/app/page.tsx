@@ -21,6 +21,7 @@ import {
   site,
 } from "@/content/site";
 import { SocialLink } from "@/components/marketing/SocialIcons";
+import { ParallaxImage } from "@/components/marketing/ParallaxImage";
 import { getProduct, LOGO_DIM } from "@/content/products";
 
 const d = (i: number) => (i ? ` d${i}` : "");
@@ -54,7 +55,7 @@ export default function Home() {
                 {site.tagline}
               </div>
             </div>
-            <div className="hero-art reveal d2">
+            <ParallaxImage className="hero-art reveal d2" drift={16} tilt={3}>
               <Image
                 src="/hero-stack.png"
                 alt="Region-grade Arabic AI and data residency converging into FTG's applications, platform, data and infrastructure stack."
@@ -64,7 +65,7 @@ export default function Home() {
                 unoptimized
                 className="hero-art-img"
               />
-            </div>
+            </ParallaxImage>
           </div>
         </section>
 
@@ -126,7 +127,7 @@ export default function Home() {
                 {"”"}
               </blockquote>
             </div>
-            <div className="group-art reveal d1">
+            <ParallaxImage className="group-art reveal d1" drift={26} tilt={2.4}>
               <Image
                 src="/group-rocket.png"
                 alt="FTG wireframe rocket launching from its platform — funding, building, and operating the stack."
@@ -135,7 +136,7 @@ export default function Home() {
                 unoptimized
                 className="group-art-img"
               />
-            </div>
+            </ParallaxImage>
           </div>
         </section>
 

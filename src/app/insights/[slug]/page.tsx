@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/marketing/SiteHeader";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
 import { LinkButton } from "@/components/ui";
 import { Prose, headingSlug } from "@/components/insights/Prose";
+import { ReadingProgress } from "@/components/insights/ReadingProgress";
 import { TYPE_LABEL, TYPE_CTA } from "@/content/insights";
 import { products } from "@/content/products";
 import { getPublishedPostBySlug } from "@/lib/posts";
@@ -99,6 +100,7 @@ export default async function InsightDetail({ params }: { params: { slug: string
   return (
     <>
       <SiteHeader />
+      <ReadingProgress />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main className="min-h-screen pb-24 pt-[100px]">
         <article className="mx-auto max-w-[760px] px-5 sm:px-8">

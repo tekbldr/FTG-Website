@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/marketing/SiteHeader";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
 import { MarketingEffects } from "@/components/marketing/MarketingEffects";
 import { SocialLink } from "@/components/marketing/SocialIcons";
+import { ProductVignette } from "@/components/marketing/ProductVignette";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema, productSchema } from "@/lib/seo";
 import { LOGO_DIM, type Product } from "@/content/products";
@@ -171,7 +172,7 @@ export async function ProductPage({ product }: { product: Product }) {
                   {shot.img ? (
                     <BrandImg src={shot.img} alt={shot.caption} className="shot-img" />
                   ) : (
-                    <div className="shot-ph grid-bg" aria-hidden />
+                    <ProductVignette slug={product.slug} />
                   )}
                   <figcaption>{shot.caption}</figcaption>
                 </figure>

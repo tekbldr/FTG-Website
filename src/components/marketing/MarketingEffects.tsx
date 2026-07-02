@@ -8,6 +8,33 @@ export function MarketingEffects() {
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    // Count-up for stat numbers ("3", "400M", …) — animates only the leading
+    // text node so suffix spans (e.g. the spark "+") are untouched.
+    const counted = new WeakSet<HTMLElement>();
+    const countUp = (root: HTMLElement) => {
+      root.querySelectorAll<HTMLElement>(".stat .n").forEach((n) => {
+        if (counted.has(n)) return;
+        counted.add(n);
+        const textNode = Array.from(n.childNodes).find(
+          (c) => c.nodeType === Node.TEXT_NODE && (c.textContent ?? "").trim()
+        );
+        const m = (textNode?.textContent ?? "").trim().match(/^(\d+)([A-Za-z%]*)$/);
+        if (!textNode || !m) return;
+        const target = parseInt(m[1], 10);
+        const suffix = m[2] ?? "";
+        const t0 = performance.now();
+        const dur = 950;
+        const tick = (t: number) => {
+          const p = Math.min(1, (t - t0) / dur);
+          const eased = 1 - Math.pow(1 - p, 3);
+          textNode.textContent = `${Math.round(target * eased)}${suffix}`;
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        textNode.textContent = `0${suffix}`;
+        requestAnimationFrame(tick);
+      });
+    };
+
     // Reveal on scroll
     const revealEls = Array.from(document.querySelectorAll<HTMLElement>(".reveal"));
     let io: IntersectionObserver | null = null;
@@ -19,6 +46,7 @@ export function MarketingEffects() {
           entries.forEach((e) => {
             if (e.isIntersecting) {
               e.target.classList.add("in");
+              countUp(e.target as HTMLElement);
               io?.unobserve(e.target);
             }
           }),
