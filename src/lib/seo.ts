@@ -121,6 +121,37 @@ export function faqSchema(items: { q: string; a: string }[]): Record<string, unk
   };
 }
 
+// Google-indexable job posting for /careers/[slug] pages.
+export function jobPostingSchema(job: {
+  title: string;
+  slug: string;
+  description: string;
+  datePosted?: string;
+  employmentType?: string;
+  location?: string;
+  remote?: boolean;
+}): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: job.title,
+    url: absoluteUrl(`/careers/${job.slug}`),
+    description: job.description,
+    ...(job.datePosted ? { datePosted: job.datePosted } : {}),
+    ...(job.employmentType ? { employmentType: job.employmentType } : {}),
+    hiringOrganization: { "@id": ORG_ID },
+    ...(job.location
+      ? {
+          jobLocation: {
+            "@type": "Place",
+            address: { "@type": "PostalAddress", addressLocality: job.location },
+          },
+        }
+      : {}),
+    ...(job.remote ? { jobLocationType: "TELECOMMUTE" } : {}),
+  };
+}
+
 export function profilePageSchema(person: {
   name: string;
   jobTitle?: string;

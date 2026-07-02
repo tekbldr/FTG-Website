@@ -3,7 +3,20 @@ import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { SiteHeader } from "@/components/marketing/SiteHeader";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
+import { MarketingEffects } from "@/components/marketing/MarketingEffects";
 import { Badge, Button, LinkButton, Input, Select } from "@/components/ui";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbSchema, buildMetadata } from "@/lib/seo";
+import {
+  careersIntro,
+  culture,
+  benefits,
+  interviewStages,
+  interviewNote,
+  visaRelocation,
+  teamStories,
+  hiringCta,
+} from "@/content/careers";
 import {
   EMPLOYMENT_LABELS,
   WORK_MODE_LABELS,
@@ -12,10 +25,12 @@ import {
   firstParam,
 } from "@/lib/format";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Careers — First Tech Group",
-  description: "Open roles across Exx1, PRVAI, and PRV Wallet. Build the operating stack for the digital economy.",
-};
+  description:
+    "Open roles across Exx1, PRVAI, PRV Wallet, Diwan OS, and EQWT1 — plus how we work, benefits, the interview process, and our visa & relocation policy.",
+  path: "/careers",
+});
 
 type JobRow = {
   id: string;
@@ -66,18 +81,28 @@ export default async function CareersPage({
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Careers", path: "/careers" },
+        ])}
+      />
       <SiteHeader />
-      <main className="wrap pt-[112px] pb-24 min-h-screen">
+      <main id="top" className="wrap pt-[112px] pb-24 min-h-screen scroll-mt-[100px]">
         {/* Header */}
         <header className="border-b border-[var(--line)] pb-10 grid-bg">
-          <div className="eyebrow">Careers · We fund · build · operate</div>
+          <div className="eyebrow">{careersIntro.eyebrow}</div>
           <h1 className="mt-4 text-4xl sm:text-5xl font-bold tracking-[-.02em] leading-[1.05] max-w-[22ch]">
-            Build the operating stack for the digital economy.
+            {careersIntro.headline}
           </h1>
-          <p className="mt-4 text-[var(--muted)] max-w-[60ch] text-[15px]">
-            Open roles across Exx1, PRVAI, and PRV Wallet. We hire operators and engineers who want to
-            build infrastructure, not features — apply and track your status in real time.
-          </p>
+          <p className="mt-4 text-[var(--muted)] max-w-[60ch] text-[15px]">{careersIntro.sub}</p>
+          {/* Everything a candidate wants to know before applying, one scroll away. */}
+          <div className="mt-6 flex flex-wrap gap-2">
+            <a href="#how-we-work" className="more-chip">Life at FTG</a>
+            <a href="#benefits" className="more-chip">Benefits</a>
+            <a href="#how-we-hire" className="more-chip">How we hire</a>
+            <a href="#visas" className="more-chip">Visas &amp; relocation</a>
+          </div>
         </header>
 
         {/* Filters */}
@@ -172,8 +197,113 @@ export default async function CareersPage({
             </Link>
           ))}
         </section>
+
+        {/* ── Employer brand: the context candidates deserve before applying ── */}
+
+        {/* How we work */}
+        <section id="how-we-work" className="mt-20 scroll-mt-[100px]">
+          <span className="idx">01 — HOW WE WORK</span>
+          <h2 className="mt-3 text-2xl sm:text-3xl font-bold tracking-[-.02em]">
+            Culture, stated as operating principles.
+          </h2>
+          <div className="mt-7 grid md:grid-cols-2 gap-px bg-[var(--line)] border border-[var(--line)] rounded-[2px] overflow-hidden">
+            {culture.map((c) => (
+              <div key={c.title} className="bg-ink p-7">
+                <h3 className="text-[16.5px] font-bold tracking-[-.01em]">{c.title}</h3>
+                <p className="mt-2 text-[var(--muted)] text-[14px] leading-[1.6]">{c.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Benefits */}
+        <section id="benefits" className="mt-16 scroll-mt-[100px]">
+          <span className="idx">02 — BENEFITS</span>
+          <h2 className="mt-3 text-2xl sm:text-3xl font-bold tracking-[-.02em]">
+            The basics, done properly.
+          </h2>
+          <div className="mt-7 grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[var(--line)] border border-[var(--line)] rounded-[2px] overflow-hidden">
+            {benefits.map((b) => (
+              <div key={b.title} className="bg-ink p-6">
+                <h3 className="text-[15px] font-bold">{b.title}</h3>
+                <p className="mt-2 text-[var(--muted)] text-[13.5px] leading-[1.55]">{b.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* How we hire */}
+        <section id="how-we-hire" className="mt-16 scroll-mt-[100px]">
+          <span className="idx">03 — HOW WE HIRE</span>
+          <h2 className="mt-3 text-2xl sm:text-3xl font-bold tracking-[-.02em]">
+            Five stages, no black hole.
+          </h2>
+          <ol className="mt-7 grid sm:grid-cols-2 lg:grid-cols-5 gap-px bg-[var(--line)] border border-[var(--line)] rounded-[2px] overflow-hidden">
+            {interviewStages.map((s) => (
+              <li key={s.n} className="bg-ink p-6">
+                <div className="font-mono text-[1.1rem] font-bold text-spark tracking-[.1em]">{s.n}</div>
+                <h3 className="mt-3 text-[15px] font-bold">{s.title}</h3>
+                <p className="mt-2 text-[var(--muted)] text-[13px] leading-[1.55]">{s.body}</p>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-5 text-[var(--muted)] text-[14px] max-w-[70ch] leading-[1.6]">
+            {interviewNote} Your data is handled per the{" "}
+            <Link href="/legal/candidate-privacy" className="text-spark underline underline-offset-2">
+              Candidate Privacy Notice
+            </Link>
+            .
+          </p>
+        </section>
+
+        {/* Visas & relocation */}
+        <section id="visas" className="mt-16 scroll-mt-[100px]">
+          <span className="idx">04 — VISAS &amp; RELOCATION</span>
+          <h2 className="mt-3 text-2xl sm:text-3xl font-bold tracking-[-.02em] max-w-[24ch]">
+            {visaRelocation.heading}
+          </h2>
+          <p className="mt-4 text-[var(--muted)] max-w-[70ch] text-[15px] leading-[1.65]">
+            {visaRelocation.body}
+          </p>
+        </section>
+
+        {/* Inside the team */}
+        <section className="mt-16">
+          <span className="idx">05 — INSIDE THE TEAM</span>
+          <h2 className="mt-3 text-2xl sm:text-3xl font-bold tracking-[-.02em]">
+            What the work is actually like.
+          </h2>
+          <div className="mt-7 grid md:grid-cols-3 gap-px bg-[var(--line)] border border-[var(--line)] rounded-[2px] overflow-hidden">
+            {teamStories.map((t) => (
+              <div key={t.role} className="bg-ink p-7">
+                <div className="font-mono text-[11px] uppercase tracking-[.2em] text-spark">{t.role}</div>
+                <h3 className="mt-3 text-[16px] font-bold tracking-[-.01em]">{t.title}</h3>
+                <p className="mt-2 text-[var(--muted)] text-[14px] leading-[1.6]">{t.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Hiring CTA */}
+        <section className="mt-20 border-t border-[var(--line)] pt-14 text-center">
+          <h2 className="text-2xl sm:text-4xl font-bold tracking-[-.02em] max-w-[24ch] mx-auto">
+            {hiringCta.heading}
+          </h2>
+          <p className="mt-4 text-[var(--muted)] max-w-[56ch] mx-auto text-[15px] leading-[1.6]">
+            {hiringCta.body}
+          </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <LinkButton href="#top" variant="spark">
+              View open roles ↑
+            </LinkButton>
+            <a href={`mailto:${hiringCta.email}?subject=Careers%20at%20FTG`} className="btn">
+              {hiringCta.email}
+            </a>
+          </div>
+        </section>
       </main>
       <SiteFooter />
+      <MarketingEffects />
     </>
   );
 }

@@ -299,6 +299,12 @@ export default function Home() {
               <Link href="/careers" className="btn">
                 View open roles
               </Link>
+              <Link
+                href="/pitch/what-good-looks-like"
+                className="font-mono text-[12px] uppercase tracking-[.12em] text-[var(--muted)] transition hover:text-paper"
+              >
+                What a good pitch looks like →
+              </Link>
             </div>
           </div>
         </section>
