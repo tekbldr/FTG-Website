@@ -78,7 +78,11 @@ export async function ProductPage({ product }: { product: Product }) {
                 />
               )}
               {hasWordmark ? (
-                <BrandImg src={product.wordmark as string} alt={`${product.logoAlt} logo`} className="product-wordmark" />
+                <BrandImg
+                  src={product.wordmark as string}
+                  alt={`${product.logoAlt} logo`}
+                  className={"product-wordmark" + (product.wordmarkTall ? " tall" : "")}
+                />
               ) : (
                 <span className="product-name">{product.name}</span>
               )}

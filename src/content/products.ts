@@ -21,6 +21,7 @@ export type Product = {
   // Logo artwork under /public/brands/<slug>/. `wordmark` is the wide lockup,
   // `mark` the square icon. Either may be absent (fall back to typographic name).
   wordmark?: string;
+  wordmarkTall?: boolean; // vertical lockups need more height than wide ones
   mark?: string;
   logoAlt: string;
   markContain?: boolean; // render mark within padding (icons that fill the frame)
@@ -104,8 +105,7 @@ export const products: Product[] = [
   {
     slug: "prvai",
     name: "PRVAI",
-    // PRV AI's authentic identity is a typographic wordmark (no clean logo file
-    // exists); rendered as the product name in the FTG type for consistency.
+    wordmark: "/brands/prvai/logo.png",
     logoAlt: "PRVAI",
     eyebrow: "Pillar 02 · Applied AI division",
     isPillar: true,
@@ -159,7 +159,7 @@ export const products: Product[] = [
   {
     slug: "prv-wallet",
     name: "PRV Wallet",
-    mark: "/brands/prv-wallet/mark.png",
+    wordmark: "/brands/prv-wallet/logo.png",
     logoAlt: "PRV Wallet",
     eyebrow: "Pillar 03 · Privacy fintech",
     isPillar: true,
@@ -213,9 +213,8 @@ export const products: Product[] = [
   {
     slug: "diwan-os",
     name: "Diwan OS",
-    mark: "/brands/diwan-os/mark.png",
+    wordmark: "/brands/diwan-os/logo.png",
     logoAlt: "Diwan OS",
-    markContain: true,
     eyebrow: "A PRVAI product · Applied AI",
     isPillar: false,
     tagline: "One agent, many jobs, one memory.",
@@ -269,8 +268,8 @@ export const products: Product[] = [
   {
     slug: "eqwt1",
     name: "EQWT1",
-    wordmark: "/brands/eqwt1/logo.png",
-    mark: "/brands/eqwt1/mark.png",
+    wordmark: "/brands/eqwt1/lockup.png",
+    wordmarkTall: true,
     logoAlt: "EQWT1",
     eyebrow: "An FTG product · Multi-asset trading",
     isPillar: false,
@@ -324,11 +323,11 @@ export const products: Product[] = [
 // path. next/image needs width+height; display size is controlled via CSS.
 export const LOGO_DIM: Record<string, [number, number]> = {
   "/brands/exx1/logo.png": [448, 188],
-  "/brands/eqwt1/logo.png": [684, 151],
-  "/brands/eqwt1/mark.png": [281, 331],
+  "/brands/eqwt1/lockup.png": [1100, 894],
   "/brands/eqwt1/terminal.png": [1600, 920],
-  "/brands/prv-wallet/mark.png": [365, 363],
-  "/brands/diwan-os/mark.png": [640, 640],
+  "/brands/prv-wallet/logo.png": [937, 440],
+  "/brands/prvai/logo.png": [934, 209],
+  "/brands/diwan-os/logo.png": [978, 428],
 };
 
 export function getProduct(slug: string): Product | undefined {
